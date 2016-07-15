@@ -18,31 +18,31 @@ public class Scenario01 {
 
 		//DRA-CF
 		DRACF dracf = null;
-		double[] tcoDRACF = new double[Panel.hsp.length];
+		double[] tcoDRACF = new double[Panel.irradiancia.length];
 
 		//DRA-BF
 		DRABF drabf = null;
-		double[] tcoDRABF = new double[Panel.hsp.length];
+		double[] tcoDRABF = new double[Panel.irradiancia.length];
 
 		//Femto-CB
 		FemtoCB femtocb = null;
-		double[] tcoFemtoCB = new double[Panel.hsp.length];
+		double[] tcoFemtoCB = new double[Panel.irradiancia.length];
 
 		//Femto-BB
 		FemtoBB femtobb = null;
-		double[] tcoFemtoBB = new double[Panel.hsp.length];
+		double[] tcoFemtoBB = new double[Panel.irradiancia.length];
 
-		for (int i=0; i<Panel.hsp.length; i++){		
-			dracf = new DRACF(Panel.hsp[i], 3000);
+		for (int i=0; i<Panel.irradiancia.length; i++){		
+			dracf = new DRACF(Panel.irradiancia[i], 3000);
 			tcoDRACF[i] = dracf.estatisticas[2]/1000000.0;
 
-			drabf = new DRABF(Panel.hsp[i], 3000);
+			drabf = new DRABF(Panel.irradiancia[i], 3000);
 			tcoDRABF[i] = drabf.estatisticas[2]/1000000.0;
 
-			femtocb = new FemtoCB(Panel.hsp[i], 3000);
+			femtocb = new FemtoCB(Panel.irradiancia[i], 3000);
 			tcoFemtoCB[i] = femtocb.estatisticas[2]/1000000.0;
 
-			femtobb = new FemtoBB(Panel.hsp[i], 3000);
+			femtobb = new FemtoBB(Panel.irradiancia[i], 3000);
 			tcoFemtoBB[i] = femtobb.estatisticas[2]/1000000.0;
 		}
 		tco.put("DRA-CF", tcoDRACF);
@@ -56,7 +56,7 @@ public class Scenario01 {
 				"Medium Solar Irradiance [kWh/m²/day]", 
 				"TCO - Total Cost of Ownership [Million Brazilian Real - BRL]", 
 				tco, 
-				Panel.hsp);
+				Panel.irradiancia);
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);		

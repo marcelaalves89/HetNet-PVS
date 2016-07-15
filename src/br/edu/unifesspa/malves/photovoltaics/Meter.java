@@ -9,17 +9,17 @@ package br.edu.unifesspa.malves.photovoltaics;
 public class Meter {
 
 	/**
-	 * Meter Installation Cost (in Brazilian Real R$)
+	 * Meter Installation Cost (Brazilian Real - BRL)
 	 */
 	public static final double custoInstalacao = 400;
 	
 	/**
-	 * Purchase cost of kWh (in Brazilian Real R$)
+	 * Purchase cost of kWh (Brazilian Real - BRL)
 	 */
 	public static final double custoKwhCompra = 0.802510;
 	
 	/**
-	 * Sales cost of kWh (in Brazilian Real R$)
+	 * Sales cost of kWh (in Brazilian Real - BRL)
 	 */
 	public static final double custoKwhVenda = 0.525390;
 }

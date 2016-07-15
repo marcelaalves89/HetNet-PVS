@@ -14,12 +14,12 @@ public class Inverter {
 	public static final double custo = 3679.0;
 	
 	/**
-	 * 
+	 * Inverter Efficiency
 	 */
 	public static final double eficiencia = 0.968;
 	
 	/**
-	 * kW
+	 * Rated DC Input Power
 	 */
 	public static final double potenciaNominalEntrada = 4.375;
 }

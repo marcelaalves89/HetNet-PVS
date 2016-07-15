@@ -36,16 +36,16 @@ public class Scenario05 {
 		double[] tcoFemtoBB = new double[Environment.densidadeDeUsuarios.length];
 
 		for (int i=0; i<Environment.densidadeDeUsuarios.length; i++){		
-			dracf = new DRACF(Panel.hspPadrao, Environment.densidadeDeUsuarios[i]);
+			dracf = new DRACF(Panel.irradianciaPadrao, Environment.densidadeDeUsuarios[i]);
 			tcoDRACF[i] = ((dracf.estatisticas[0]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuarios[i]*Environment.area))/Environment.anos.length;
 
-			drabf = new DRABF(Panel.hspPadrao, Environment.densidadeDeUsuarios[i]);
+			drabf = new DRABF(Panel.irradianciaPadrao, Environment.densidadeDeUsuarios[i]);
 			tcoDRABF[i] = ((drabf.estatisticas[0]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuarios[i]*Environment.area))/Environment.anos.length;
 
-			femtocb = new FemtoCB(Panel.hspPadrao, Environment.densidadeDeUsuarios[i]);
+			femtocb = new FemtoCB(Panel.irradianciaPadrao, Environment.densidadeDeUsuarios[i]);
 			tcoFemtoCB[i] = ((femtocb.estatisticas[0]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuarios[i]*Environment.area))/Environment.anos.length;
 
-			femtobb = new FemtoBB(Panel.hspPadrao, Environment.densidadeDeUsuarios[i]);
+			femtobb = new FemtoBB(Panel.irradianciaPadrao, Environment.densidadeDeUsuarios[i]);
 			tcoFemtoBB[i] = ((femtobb.estatisticas[0]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuarios[i]*Environment.area))/Environment.anos.length;;
 		}
 		

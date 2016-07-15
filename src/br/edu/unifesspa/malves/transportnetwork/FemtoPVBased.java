@@ -97,7 +97,7 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 		double[][] matrizDePotencia = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 
 		double potenciaSaidaPainel = Panel.area*Panel.eficiencia*hsp;
-		this.numeroPaineisPorInversor = (Inverter.potenciaNominalEntrada*Panel.duracaoSolarMediaPadrao)/potenciaSaidaPainel;
+		this.numeroPaineisPorInversor = (Inverter.potenciaNominalEntrada*Panel.hspPadrao)/potenciaSaidaPainel;
 		double potenciaSaidaInversor = Inverter.eficiencia*this.numeroPaineisPorInversor*potenciaSaidaPainel;		
 
 		for (int i=0; i<this.potenciaGerada.length; i++){

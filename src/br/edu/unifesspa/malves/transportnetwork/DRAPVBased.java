@@ -39,12 +39,12 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 	public double[] numeroInversores;
 
 	/**
-	 * Generated power
+	 * Generated Power
 	 */
 	public double[] potenciaGerada;
 
 	/**
-	 * TCO
+	 * Total Cost of Ownership
 	 */
 	public double[] tco;
 
@@ -56,7 +56,7 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 	/**
 	 * 
 	 */
-	public double hsp;
+	public double irradiancia;
 
 	/**
 	 * 
@@ -66,7 +66,7 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 	/**
 	 * Super constructor call and initializing values
 	 */
-	public DRAPVBased(double hsp, double densidadeDeUsuarios){
+	public DRAPVBased(double irradiancia, double densidadeDeUsuarios){
 		super(densidadeDeUsuarios);
 		this.nome = "DRA-PV Based Architecture";
 		int dimensao = super.numeroDeAntenasDRA.length;
@@ -78,11 +78,15 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 		this.potenciaGerada = new double[dimensao];
 		this.tco = new double[dimensao];
 		this.estatisticas = new double[5];
-		this.hsp = hsp;
+		this.irradiancia = irradiancia;
 	}
+	
+	public abstract void getConsumoDRA();
+
+	public abstract void debug();
 
 	/**
-	 * Calculating the Total Power Consumption of Macro+DRA-CF Architecture (KWH)
+	 * Calculates the Total Power Consumption of Macro+DRA-CF Architecture [kWh]
 	 */
 	public void getConsumoMacro(){				
 		this.potenciaMacroOnly = Util.getSoma(Util.getProdutoPorEscalar(super.numeroDeMacros,Macro.potencia),Util.getProdutoPorEscalar(this.numeroDeMacros, 2.0*Microwave.potenciaBaixa));		
@@ -90,14 +94,14 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 	}
 
 	/**
-	 * 
+	 * Calculates the Power Generation [kWh]
 	 */
 	public void getPotenciaDeGeracao(){
 		this.consumoTotal = Util.getDiagonalPrincipal(this.potenciaTotal);		
 		double[][] matrizDePotencia = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 
-		double potenciaSaidaPainel = Panel.area*Panel.eficiencia*hsp;
-		this.numeroPaineisPorInversor = (Inverter.potenciaNominalEntrada*Panel.duracaoSolarMediaPadrao)/potenciaSaidaPainel;
+		double potenciaSaidaPainel = Panel.area*Panel.eficiencia*irradiancia;
+		this.numeroPaineisPorInversor = (Inverter.potenciaNominalEntrada*Panel.hspPadrao)/potenciaSaidaPainel;
 		double potenciaSaidaInversor = Inverter.eficiencia*this.numeroPaineisPorInversor*potenciaSaidaPainel;		
 
 		for (int i=0; i<this.potenciaGerada.length; i++){
@@ -110,7 +114,7 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 	}
 
 	/**
-	 * Calculate TCO
+	 * Calculates Total Cost of Ownership [Brazilian Real - BRL]
 	 */
 	public void getTCO(){
 		double[][] matrizCAPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
@@ -136,7 +140,7 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 	}
 
 	/**
-	 * 
+	 * Calculates Statistics
 	 */
 	public void getEstatisticas(){		
 		double somaConsumo = 0, somaGeracao = 0, diferenca = 0;
@@ -152,14 +156,4 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 		double temp = (somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda)-this.tco[20];
 		this.estatisticas[3] = (temp/(this.densidadeDeUsuarios*Environment.area))/Environment.anos.length;
 	}
-
-	/**
-	 * 
-	 */
-	public abstract void getConsumoDRA();
-	
-	/**
-	 * 
-	 */
-	public abstract void debug();
 }

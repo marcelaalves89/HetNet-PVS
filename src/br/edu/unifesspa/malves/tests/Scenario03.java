@@ -36,16 +36,16 @@ public class Scenario03 {
 		double[] etFemtoBB = new double[Environment.densidadeDeUsuarios.length];
 
 		for (int i=0; i<Environment.densidadeDeUsuarios.length; i++){		
-			dracf = new DRACF(Panel.hsp[8], Environment.densidadeDeUsuarios[i]);
+			dracf = new DRACF(Panel.irradiancia[8], Environment.densidadeDeUsuarios[i]);
 			etDRACF[i] = dracf.estatisticas[3];
 
-			drabf = new DRABF(Panel.hsp[8], Environment.densidadeDeUsuarios[i]);
+			drabf = new DRABF(Panel.irradiancia[8], Environment.densidadeDeUsuarios[i]);
 			etDRABF[i] = drabf.estatisticas[3];
 
-			femtocb = new FemtoCB(Panel.hsp[8], Environment.densidadeDeUsuarios[i]);
+			femtocb = new FemtoCB(Panel.irradiancia[8], Environment.densidadeDeUsuarios[i]);
 			etFemtoCB[i] = femtocb.estatisticas[3];
 
-			femtobb = new FemtoBB(Panel.hsp[8], Environment.densidadeDeUsuarios[i]);
+			femtobb = new FemtoBB(Panel.irradiancia[8], Environment.densidadeDeUsuarios[i]);
 			etFemtoBB[i] = femtobb.estatisticas[3];
 		}
 		
