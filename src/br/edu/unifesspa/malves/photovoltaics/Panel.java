@@ -52,4 +52,14 @@ public class Panel {
 	 * Irradiance [kWh/m²/day]
 	 */
 	public static final double[] irradiancia = {2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5};
+	
+	/**
+	 * Installation Kit
+	 */
+	public static final double custoKitMontagem = 199.75;
+	
+	/**
+	 * 
+	 */
+	public static final double numeroDePlacasPorKit = 1.0;
 }

@@ -122,11 +122,13 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 		double opex = 0;
 		for (int i=0; i<this.consumoTotal.length; i++){			
 			double numeroTotalDePaineis = this.numeroInversores[i]*this.numeroPaineisPorInversor;
+			double numeroDeKitsInstalacao = numeroTotalDePaineis/Panel.numeroDePlacasPorKit;
 
 			//CAPEX
 			matrizCAPEX[i][i] = CAPEX.taxaInstalacao*(numeroTotalDePaineis*Panel.custoPorPainel 
 					+ numeroInversores[i]*Inverter.custo)
-					+ numeroInversores[i]*Meter.custoInstalacao;
+					+ numeroInversores[i]*Meter.custoInstalacao
+					+ numeroDeKitsInstalacao*Panel.custoKitMontagem;
 			Util.getDepreciacao(matrizCAPEX, CAPEX.taxaPreciacaoFinanceira);
 
 			//OPEX

@@ -1,6 +1,7 @@
 package br.edu.unifesspa.malves.util;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Stroke;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -65,6 +66,11 @@ public class GraficoLinha extends ApplicationFrame {
 		XYPlot plot = (XYPlot) chart.getPlot();
 		plot.setDomainPannable(true);
 		plot.setRangePannable(true);
+		
+/*		plot.setBackgroundPaint(new Color(0xFF, 0xFF, 0xFF));
+	    plot.setDomainGridlinePaint(new Color(0x00, 0x00, 0xff));
+	    plot.setRangeGridlinePaint(new Color(0xff, 0x00, 0x00));*/	    
+	    
 		plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
 
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(){
@@ -74,7 +80,7 @@ public class GraficoLinha extends ApplicationFrame {
 			Stroke dashed =  new BasicStroke(3.0f,BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, new float[] {10.0f}, 0.0f);
 			@Override
 			public Stroke getItemStroke(int row, int column) {
-				if (row > 10){
+				if (row > 20){
 					double x = dataset.getXValue(row, column);
 					if ( x > 1){
 						return dashed;
@@ -84,7 +90,14 @@ public class GraficoLinha extends ApplicationFrame {
 				} else
 					return super.getItemStroke(row, column);
 			}
+
 		};
+		
+		plot.getRenderer().setSeriesPaint(0, new Color(0x00, 0xFF, 0x00));
+		plot.getRenderer().setSeriesPaint(1, new Color(0x00, 0xFF, 0x00));
+		plot.getRenderer().setSeriesPaint(2, new Color(0x00, 0xFF, 0x00));
+		plot.getRenderer().setSeriesPaint(3, new Color(0x00, 0xFF, 0x00));
+
 
 		renderer.setBaseShapesVisible(true);
 		renderer.setBaseShapesFilled(true);
