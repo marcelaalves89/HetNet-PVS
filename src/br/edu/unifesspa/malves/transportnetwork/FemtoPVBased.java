@@ -56,17 +56,21 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 	/**
 	 * 
 	 */
-	public double hsp;
+	public double radiacao;
 	
 	/**
 	 * 
 	 */
 	public double numeroPaineisPorInversor;
 
+	private double[][] matrizConsumoMinimo;
+
+	private double[] consumoASerGerado;
+
 	/**
 	 * Super constructor call and initializing values
 	 */
-	public FemtoPVBased(double hsp, double densidadeDeUsuarios){
+	public FemtoPVBased(double radiacao, double densidadeDeUsuarios){
 		super(densidadeDeUsuarios);
 		this.nome = "Femto-BB Architecture";
 		int dimensao = super.numeroDeFemtos.length;
@@ -75,10 +79,11 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 		this.potenciaTotal = new double [dimensao][dimensao];
 		this.numeroInversores = new double[dimensao];
 		this.consumoTotal = new double[dimensao];
+		this.consumoASerGerado = new double[dimensao];
 		this.potenciaGerada = new double[dimensao];
 		this.tco = new double[dimensao];
-		this.estatisticas = new double[5];
-		this.hsp = hsp;
+		this.estatisticas = new double[6];
+		this.radiacao = radiacao;
 	}
 	
 	/**
@@ -93,24 +98,30 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 	 * 
 	 */
 	public void getPotenciaDeGeracao(){
-		this.consumoTotal = Util.getDiagonalPrincipal(this.potenciaTotal);		
+		this.consumoTotal = Util.getDiagonalPrincipal(this.potenciaTotal);
 		double[][] matrizDePotencia = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
+		this.matrizConsumoMinimo = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 
-		double potenciaSaidaPainel = Panel.area*Panel.eficiencia*hsp;
-		this.numeroPaineisPorInversor = (Inverter.potenciaNominalEntrada*Panel.hspPadrao)/potenciaSaidaPainel;
-		double potenciaSaidaInversor = Inverter.eficiencia*this.numeroPaineisPorInversor*potenciaSaidaPainel;		
-
+		double potenciaSaidaPainel = Panel.area*Panel.eficiencia*this.radiacao;
+		this.numeroPaineisPorInversor = (Inverter.potenciaNominalEntrada*Panel.hspPadrao)/potenciaSaidaPainel;		
+		double potenciaSaidaInversor = Inverter.eficiencia*this.numeroPaineisPorInversor*potenciaSaidaPainel;
+	
 		for (int i=0; i<this.potenciaGerada.length; i++){
-			matrizDePotencia[i][i] = this.consumoTotal[i] - Util.getSomaPorColuna(matrizDePotencia, i);
-			this.numeroInversores[i] = matrizDePotencia[i][i]/potenciaSaidaInversor;
+									
+			this.consumoASerGerado[i] = this.consumoTotal[i] - Util.getSomaPorColuna(matrizDePotencia, i);
+			double numeroDeMedidores = Math.ceil(this.consumoASerGerado[i]/potenciaSaidaInversor);
+			this.matrizConsumoMinimo[i][i] = numeroDeMedidores * Meter.consumoMinimo;
 			
-			double consumoMinimo = this.numeroInversores[i] * Meter.consumoMinimo;
-			this.numeroInversores[i] = (matrizDePotencia[i][i]-consumoMinimo)/potenciaSaidaInversor;
+			this.consumoASerGerado[i] -= Util.getSomaPorColuna(this.matrizConsumoMinimo, i);			
 			
+			this.numeroInversores[i] = Math.ceil((this.consumoASerGerado[i])/potenciaSaidaInversor);
 			matrizDePotencia[i][i] = this.numeroInversores[i] * potenciaSaidaInversor;
-			Util.getDepreciacao(matrizDePotencia,Panel.taxaDesempenho);			
+			
+			Util.getDepreciacao(matrizDePotencia,Panel.taxaDesempenho);
+			Util.getDepreciacao(this.matrizConsumoMinimo,1);
 		}
 		this.potenciaGerada = Util.getSomaPorColuna(matrizDePotencia);
+		this.estatisticas[4] = Util.getSomaColunasVetor(Util.getSomaPorColuna(this.matrizConsumoMinimo))*365/1000;		
 	}
 
 	/**
@@ -150,18 +161,23 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 	 * 
 	 */
 	public void getEstatisticas(){		
-		double somaConsumo = 0, somaGeracao = 0, diferenca = 0;
+		double somaConsumo = 0, somaGeracao = 0, somaASerGerada = 0, diferenca = 0;
+		
+		double[] b = Util.getSomaPorColuna(this.matrizConsumoMinimo);
+		double[] c = Util.getDiferenca(this.consumoTotal, b);
+		
 		for (int i=0; i<consumoTotal.length; i++){
 			somaConsumo += (this.consumoTotal[i]*365);
-			somaGeracao += (this.potenciaGerada[i]*365);
-		}
-		diferenca = somaGeracao - somaConsumo; 
+			somaGeracao += (this.potenciaGerada[i]*365);	
+			somaASerGerada += (c[i]*365);
+		}		
+		diferenca = somaGeracao - somaASerGerada;		
 		this.estatisticas[0] = somaConsumo;
-		this.estatisticas[1] = somaGeracao;
-		this.estatisticas[2] = this.tco[20];
-
-		double temp = (somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda)-this.tco[20];
-		this.estatisticas[3] = (temp/(this.densidadeDeUsuarios*Environment.area))/Environment.anos.length;
+		this.estatisticas[1] = somaGeracao;		
+		this.estatisticas[2] = this.tco[20];		
+		double temp = (somaASerGerada*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda)-this.tco[20];
+		this.estatisticas[3] = (temp/(this.densidadeDeUsuarios*Environment.area))/Environment.anos.length;		
+		this.estatisticas[5] = somaASerGerada;				
 	}
 		
 	public abstract void getConsumoFemto();

@@ -26,5 +26,5 @@ public class Meter {
 	/**
 	 * kWh
 	 */
-	public static final double consumoMinimo = (100.0/30.0);
+	public static final double consumoMinimo = 0.2739;
 }
