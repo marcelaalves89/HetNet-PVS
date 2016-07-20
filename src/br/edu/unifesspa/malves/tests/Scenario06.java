@@ -17,16 +17,16 @@ public class Scenario06 {
 	public Scenario06(){
 		HashMap<String, Double> emissao = new HashMap<String, Double>();
 
-		DRACF dracf = new DRACF(Panel.irradianciaPadrao, Environment.densidadeDeUsuariosPadrao);
+		DRACF dracf = new DRACF(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
 		double emissaoDRACF = ((dracf.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
-		DRABF drabf = new DRABF(Panel.irradianciaPadrao, Environment.densidadeDeUsuariosPadrao);
+		DRABF drabf = new DRABF(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
 		double emissaoDRABF = ((drabf.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
-		FemtoCB femtocb = new FemtoCB(Panel.irradianciaPadrao, Environment.densidadeDeUsuariosPadrao);
+		FemtoCB femtocb = new FemtoCB(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
 		double emissaoFemtoCB = ((femtocb.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
-		FemtoBB femtobb = new FemtoBB(Panel.irradianciaPadrao, Environment.densidadeDeUsuariosPadrao);
+		FemtoBB femtobb = new FemtoBB(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
 		double emissaoFemtoBB = ((femtobb.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
 		emissao.put("DRA-CF", emissaoDRACF);

@@ -13,10 +13,10 @@ import br.edu.unifesspa.malves.wireless.DRA;
 public class DRABF extends DRAPVBased{
 
 	/**
-	 * Super constructor call
+	 * Super constructor call and initializing values
 	 */
-	public DRABF(double irradiancia, double densidadeDeUsuarios){
-		super(irradiancia, densidadeDeUsuarios);
+	public DRABF(double hsp, double densidadeDeUsuarios){
+		super(hsp, densidadeDeUsuarios);
 		this.nome = "Macro+DRA-BF Architecture";
 		this.getConsumoMacro();
 		this.getConsumoDRA();		
@@ -27,7 +27,7 @@ public class DRABF extends DRAPVBased{
 	}
 
 	/**
-	 * Calculate the Power Consumption of DRA-BF Only (kWh)
+	 * Calculating the Power Consumption of DRA-BF Only (KWH)
 	 */
 	public void getConsumoDRA(){				
 		double temp = DRA.numeroDeRRUSporPredio*(DRA.potenciaRRU + DRA.potenciaPorPortaDU + (DRA.potenciaPorRackDU/DRA.numeroDePortasDUporRackDU));

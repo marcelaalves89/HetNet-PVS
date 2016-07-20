@@ -19,7 +19,12 @@ public class Meter {
 	public static final double custoKwhCompra = 0.802510;
 	
 	/**
-	 * Sales cost of kWh (in Brazilian Real - BRL)
+	 * Sales cost of kWh (Brazilian Real - BRL)
 	 */
 	public static final double custoKwhVenda = 0.525390;
+	
+	/**
+	 * kWh
+	 */
+	public static final double consumoMinimo = (100.0/30.0);
 }

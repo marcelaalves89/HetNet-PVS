@@ -9,57 +9,52 @@ package br.edu.unifesspa.malves.photovoltaics;
 public class Panel {
 
 	/**
-	 * Rated Power (W)
+	 * Rated Power in Watts (W)
 	 */
 	public static final double potenciaNominal = 265;
 	
 	/**
-	 * Panel Area [m²]
+	 * Panel Area in m²
 	 */
 	public static final double area = 1.6085;
 	
 	/**
-	 * Panel Acquisition Cost (Brazilian Real - BRL)
+	 * Panel Acquisition Cost (in Brazilian Real R$)
 	 */
 	public static final double custoPorPainel = 835.00;
 	
 	/**
-	 * Panel Efficiency
+	 * 
 	 */
 	public static final double eficiencia = 0.1616;
 	
 	/**
-	 * Panel Performance Rate
+	 * 
 	 */
 	public static final double taxaDesempenho = 0.995;
 	
 	/**
-	 * Standard Hours of Full Sun [h]
+	 * 
 	 */
 	public static final double hspPadrao = 5.9;
 	
 	/**
-	 * Hours of Full Sun [h]
+	 * 
 	 */
-	public static final double[] hsp = {2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10};
-	
-	/**
-	 * Standard Irradiance
-	 */
-	public static final double irradianciaPadrao = 5.5;
-	
-	/**
-	 * Irradiance [kWh/m²/day]
-	 */
-	public static final double[] irradiancia = {2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5};
-	
-	/**
-	 * Installation Kit
-	 */
-	public static final double custoKitMontagem = 199.75;
+	public static final double[] hsp = {1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12};
 	
 	/**
 	 * 
 	 */
-	public static final double numeroDePlacasPorKit = 1.0;
+	public static final double radiacaoPadrao = 6;
+	
+	/**
+	 * 
+	 */
+	public static final double[] radiacao = {3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5};
+	
+	/**
+	 * 
+	 */
+	public static final double custoKitInstalacao = 199.75;
 }

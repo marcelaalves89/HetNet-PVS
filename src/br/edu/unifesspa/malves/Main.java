@@ -1,6 +1,11 @@
 package br.edu.unifesspa.malves;
 
 import br.edu.unifesspa.malves.tests.Scenario01;
+import br.edu.unifesspa.malves.tests.Scenario02;
+import br.edu.unifesspa.malves.tests.Scenario03;
+import br.edu.unifesspa.malves.tests.Scenario04;
+import br.edu.unifesspa.malves.tests.Scenario05;
+import br.edu.unifesspa.malves.tests.Scenario06;
 
 /**
  * 
@@ -14,7 +19,7 @@ public class Main {
 
 		new Scenario01();
 		
-/*		new Scenario02();
+		new Scenario02();
 		
 		new Scenario03();
 		
@@ -22,6 +27,6 @@ public class Main {
 		
 		new Scenario05();
 		
-		new Scenario06();*/
+		new Scenario06();
 	}
 }

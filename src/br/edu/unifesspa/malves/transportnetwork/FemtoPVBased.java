@@ -103,6 +103,10 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 		for (int i=0; i<this.potenciaGerada.length; i++){
 			matrizDePotencia[i][i] = this.consumoTotal[i] - Util.getSomaPorColuna(matrizDePotencia, i);
 			this.numeroInversores[i] = matrizDePotencia[i][i]/potenciaSaidaInversor;
+			
+			double consumoMinimo = this.numeroInversores[i] * Meter.consumoMinimo;
+			this.numeroInversores[i] = (matrizDePotencia[i][i]-consumoMinimo)/potenciaSaidaInversor;
+			
 			matrizDePotencia[i][i] = this.numeroInversores[i] * potenciaSaidaInversor;
 			Util.getDepreciacao(matrizDePotencia,Panel.taxaDesempenho);			
 		}
@@ -118,19 +122,24 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 		double opex = 0;
 		for (int i=0; i<this.consumoTotal.length; i++){			
 			double numeroTotalDePaineis = this.numeroInversores[i]*this.numeroPaineisPorInversor;
-			double numeroDeKitsInstalacao = numeroTotalDePaineis/Panel.numeroDePlacasPorKit;
 
 			//CAPEX
-			matrizCAPEX[i][i] = CAPEX.taxaInstalacao*(numeroTotalDePaineis*Panel.custoPorPainel 
-					+ numeroInversores[i]*Inverter.custo)
-					+ numeroInversores[i]*Meter.custoInstalacao
-					+ numeroDeKitsInstalacao*Panel.custoKitMontagem;
-			Util.getDepreciacao(matrizCAPEX, CAPEX.taxaPreciacaoFinanceira);
+			matrizCAPEX[i][i] = (numeroTotalDePaineis*Panel.custoPorPainel 
+					+ numeroInversores[i]*Inverter.custo) 
+					+ numeroTotalDePaineis * Panel.custoKitInstalacao;
+			
+			double capexInicial = matrizCAPEX[i][i]; 			
+			Util.getDepreciacao(matrizCAPEX, CAPEX.taxaDepreciacaoFinanceira);			
 
 			//OPEX
 			for (int j=0; j<matrizOPEX.length; j++)
 				matrizOPEX[i][i] = matrizCAPEX[i][i]*OPEX.taxaManutencao;
 			Util.getDepreciacao(matrizOPEX, 1);
+			
+			matrizOPEX[i][i] += capexInicial * OPEX.taxaInstalacao;
+			matrizOPEX[i][i] += this.numeroInversores[i]*Meter.consumoMinimo*Meter.custoKwhCompra;
+			matrizOPEX[i][i] += this.numeroInversores[i]*Meter.custoInstalacao;
+
 			opex = Util.getSomaColunasVetor(Util.getSomaPorColuna(matrizOPEX));
 		}
 		this.tco = Util.getSomaPorColuna(matrizCAPEX);

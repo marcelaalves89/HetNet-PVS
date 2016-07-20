@@ -24,7 +24,7 @@ public abstract class Environment {
 	public static final double densidadeDeUsuariosPadrao = 3000;
 	
 	/**
-	 * User Density
+	 * 
 	 */
 	public static final double[] densidadeDeUsuarios = {500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3500, 3500, 3750, 4000, 4250, 4500, 4750, 5000};
 	
@@ -49,17 +49,17 @@ public abstract class Environment {
 	public static final double[][] taxaPenetracaoTerminais = {{0.1,0.2,0.3},{0.03,0.05,0.1},{0.3,0.5,0.6}};
 	
 	/**
-	 * Years
+	 * 
 	 */
 	public static final double[] anos = {2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030};
 	
 	/**
-	 * Standard CO2 Retention Factor
+	 * 
 	 */
 	public static final double fatorCO2Padrao = 0.6;
 	
 	/**
-	 * CO2 Retention Factor
+	 * 
 	 */
 	public static final double[] fatorCO2 = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9};
 }

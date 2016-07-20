@@ -1,4 +1,4 @@
-package br.edu.unifesspa.malves.wireless;
+ package br.edu.unifesspa.malves.wireless;
 
 public abstract class Femto {
 
@@ -12,8 +12,8 @@ public abstract class Femto {
 	
 	public static final double porcentagemTrafego = 0.5;
 	
-	public static final double potencia = Femto.aF*0.1+Femto.bF;
-	
+	public static final double potencia = Femto.aF*0.1+Femto.bF; //10%
+ 	
 	public static final double offGain = 0;
 	
 	public static final double numeroDeWavelengthsPorFemto = 100;
