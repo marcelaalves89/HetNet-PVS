@@ -10,39 +10,58 @@ import br.edu.unifesspa.malves.transportnetwork.DRABF;
 import br.edu.unifesspa.malves.transportnetwork.DRACF;
 import br.edu.unifesspa.malves.transportnetwork.FemtoBB;
 import br.edu.unifesspa.malves.transportnetwork.FemtoCB;
-import br.edu.unifesspa.malves.util.GraficoBarra;
+import br.edu.unifesspa.malves.util.GraficoLinha;
+
 
 public class Scenario06 {
 
 	public Scenario06(){
-		HashMap<String, Double> emissao = new HashMap<String, Double>();
 
-		DRACF dracf = new DRACF(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
-		double emissaoDRACF = ((dracf.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
+		HashMap<String, double[]> tco = new HashMap<String, double[]>();
 
-		DRABF drabf = new DRABF(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
-		double emissaoDRABF = ((drabf.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
+		//DRA-CF
+		DRACF dracf = null;
+		double[] tcoDRACF = new double[Environment.densidadeDeUsuarios.length];
 
-		FemtoCB femtocb = new FemtoCB(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
-		double emissaoFemtoCB = ((femtocb.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
+		//DRA-BF
+		DRABF drabf = null;
+		double[] tcoDRABF = new double[Environment.densidadeDeUsuarios.length];
 
-		FemtoBB femtobb = new FemtoBB(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
-		double emissaoFemtoBB = ((femtobb.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
+		//Femto-CB
+		FemtoCB femtocb = null;
+		double[] tcoFemtoCB = new double[Environment.densidadeDeUsuarios.length];
 
-		emissao.put("DRA-CF", emissaoDRACF);
-		emissao.put("DRA-BF", emissaoDRABF);
-		emissao.put("Femto-CB", emissaoFemtoCB);
-		emissao.put("Femto-BB", emissaoFemtoBB);
+		//Femto-BB
+		FemtoBB femtobb = null;
+		double[] tcoFemtoBB = new double[Environment.densidadeDeUsuarios.length];
 
-		//Graphics
-		GraficoBarra demo = new GraficoBarra(
-				this.getClass().getSimpleName(), 
+		for (int i=0; i<Environment.densidadeDeUsuarios.length; i++){		
+			dracf = new DRACF(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
+			tcoDRACF[i] = (dracf.estatisticas[2]/(3000*Environment.area))/21.0;
+			
+			drabf = new DRABF(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
+			tcoDRABF[i] = (drabf.estatisticas[2]/(3000*Environment.area))/21.0;
+
+			femtocb = new FemtoCB(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
+			tcoFemtoCB[i] = (femtocb.estatisticas[2]/(3000*Environment.area))/21.0;
+
+			femtobb = new FemtoBB(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
+			tcoFemtoBB[i] = (femtobb.estatisticas[2]/(3000*Environment.area))/21.0;
+		}
+		
+		tco.put("DRA-CF", tcoDRACF);
+		tco.put("DRA-BF", tcoDRABF);
+		tco.put("Femto-CB", tcoFemtoCB);
+		tco.put("Femto-BB", tcoFemtoBB);
+
+		GraficoLinha demo2 = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
-				"", 
-				"CO2 Emission Avoided [kg/user/year]", 
-				emissao);
-		demo.pack();
-		RefineryUtilities.centerFrameOnScreen(demo);
-		demo.setVisible(true);		
+				"User Density (ρ) [Users/km²]", 
+				"Cost per User per Year [Brazilian Real - BRL]", 
+				tco, 
+				Environment.densidadeDeUsuarios);
+		demo2.pack();
+		RefineryUtilities.centerFrameOnScreen(demo2);
+		demo2.setVisible(true);
 	}
 }

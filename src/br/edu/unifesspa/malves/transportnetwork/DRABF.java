@@ -23,7 +23,7 @@ public class DRABF extends DRAPVBased{
 		this.getPotenciaDeGeracao();
 		this.getTCO();
 		this.getEstatisticas();
-		//this.debug();
+		this.debug();
 	}
 
 	/**
@@ -39,23 +39,22 @@ public class DRABF extends DRAPVBased{
 				);		
 		Util.converterEmKWH(this.potenciaDRAOnly);
 		this.potenciaTotal = Util.getSoma(this.potenciaMacroOnly,this.potenciaDRAOnly);
-
 	}
 	
 	/**
 	 * Print values for Debug
 	 */
 	public void debug(){
-		System.out.println("Power Consumption of DRA-BF Architecture");
+		System.out.println("Power Consumption of Macro+DRA-BF Architecture");
 		Util.imprime(this.consumoTotal);
 		System.out.println();
 
-		System.out.println("Power Generation of DRA-BF Architecture");
+		/*System.out.println("Power Generation of DRA-BF Architecture");
 		Util.imprime(this.potenciaGerada);
 		System.out.println();
 
 		System.out.println("TCO");
 		Util.imprime(this.tco);
-		System.out.println();
+		System.out.println();*/
 	}
 }

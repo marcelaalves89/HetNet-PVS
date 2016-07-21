@@ -169,16 +169,26 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 		double[] b = Util.getSomaPorColuna(this.matrizConsumoMinimo);
 		double[] c = Util.getDiferenca(this.consumoTotal, b);
 		
+		int anoPagamento = 0;
+		boolean achou = true;
 		for (int i=0; i<consumoTotal.length; i++){
-			somaConsumo += (this.consumoTotal[i]*365);
-			somaGeracao += (this.potenciaGerada[i]*365);	
+			somaConsumo += (this.consumoTotal[i]*365);			
+			somaGeracao += (this.potenciaGerada[i]*365);
+			if ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda)>this.tco[20] && achou){
+				anoPagamento = i;
+				achou  = false;
+			}
 			somaASerGerada += (c[i]*365);
 		}		
+		System.out.println("TesteD: "+anoPagamento);
+		
+		
 		diferenca = somaGeracao - somaASerGerada;		
 		this.estatisticas[0] = somaConsumo;
 		this.estatisticas[1] = somaGeracao;		
-		this.estatisticas[2] = this.tco[20];		
-		double temp = (somaASerGerada*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda)-this.tco[20];
+		this.estatisticas[2] = this.tco[20];	
+		
+		double temp = ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda))-this.tco[20];		
 		this.estatisticas[3] = (temp/(this.densidadeDeUsuarios*Environment.area))/Environment.anos.length;		
 		this.estatisticas[5] = somaASerGerada;				
 	}

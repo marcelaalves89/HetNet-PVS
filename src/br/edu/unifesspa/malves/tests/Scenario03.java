@@ -5,63 +5,60 @@ import java.util.HashMap;
 import org.jfree.ui.RefineryUtilities;
 
 import br.edu.unifesspa.malves.photovoltaics.Panel;
-import br.edu.unifesspa.malves.trafficforecast.Environment;
 import br.edu.unifesspa.malves.transportnetwork.DRABF;
 import br.edu.unifesspa.malves.transportnetwork.DRACF;
 import br.edu.unifesspa.malves.transportnetwork.FemtoBB;
 import br.edu.unifesspa.malves.transportnetwork.FemtoCB;
 import br.edu.unifesspa.malves.util.GraficoLinha;
 
-
 public class Scenario03 {
 
 	public Scenario03(){
-
-		HashMap<String, double[]> et = new HashMap<String, double[]>();
+		HashMap<String, double[]> tco = new HashMap<String, double[]>();
 
 		//DRA-CF
 		DRACF dracf = null;
-		double[] etDRACF = new double[Environment.densidadeDeUsuarios.length];
+		double[] tcoDRACF = new double[Panel.radiacao.length];
 
 		//DRA-BF
 		DRABF drabf = null;
-		double[] etDRABF = new double[Environment.densidadeDeUsuarios.length];
+		double[] tcoDRABF = new double[Panel.radiacao.length];
 
 		//Femto-CB
 		FemtoCB femtocb = null;
-		double[] etFemtoCB = new double[Environment.densidadeDeUsuarios.length];
+		double[] tcoFemtoCB = new double[Panel.radiacao.length];
 
 		//Femto-BB
 		FemtoBB femtobb = null;
-		double[] etFemtoBB = new double[Environment.densidadeDeUsuarios.length];
+		double[] tcoFemtoBB = new double[Panel.radiacao.length];
 
-		for (int i=0; i<Environment.densidadeDeUsuarios.length; i++){		
-			dracf = new DRACF(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
-			etDRACF[i] = dracf.estatisticas[3];
+		for (int i=0; i<Panel.radiacao.length; i++){		
+			dracf = new DRACF(Panel.radiacao[i], 3000);
+			tcoDRACF[i] = dracf.estatisticas[3];
 
-			drabf = new DRABF(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
-			etDRABF[i] = drabf.estatisticas[3];
+			drabf = new DRABF(Panel.radiacao[i], 3000);
+			tcoDRABF[i] = drabf.estatisticas[3];
 
-			femtocb = new FemtoCB(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
-			etFemtoCB[i] = femtocb.estatisticas[3];
+			femtocb = new FemtoCB(Panel.radiacao[i], 3000);
+			tcoFemtoCB[i] = femtocb.estatisticas[3];
 
-			femtobb = new FemtoBB(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
-			etFemtoBB[i] = femtobb.estatisticas[3];
+			femtobb = new FemtoBB(Panel.radiacao[i], 3000);
+			tcoFemtoBB[i] = femtobb.estatisticas[3];
 		}
-		
-		et.put("DRA-CF", etDRACF);
-		et.put("DRA-BF", etDRABF);
-		et.put("Femto-CB", etFemtoCB);
-		et.put("Femto-BB", etFemtoBB);
+		tco.put("DRA-CF", tcoDRACF);
+		tco.put("DRA-BF", tcoDRABF);
+		tco.put("Femto-CB", tcoFemtoCB);
+		tco.put("Femto-BB", tcoFemtoBB);
 
-		GraficoLinha demo2 = new GraficoLinha(this.getClass().getSimpleName(), 
+		//Graphics
+		GraficoLinha demo = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
-				"User Density (ρ) [Users/km²]", 
+				"Solar Radiation [kWh/m²/day]", 
 				"Amount Saved per User per Year [Brazilian Real - BRL]", 
-				et, 
-				Environment.densidadeDeUsuarios);
-		demo2.pack();
-		RefineryUtilities.centerFrameOnScreen(demo2);
-		demo2.setVisible(true);
+				tco, 
+				Panel.radiacao);
+		demo.pack();
+		RefineryUtilities.centerFrameOnScreen(demo);
+		demo.setVisible(true);		
 	}
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.jfree.ui.RefineryUtilities;
 
+import br.edu.unifesspa.malves.photovoltaics.Meter;
 import br.edu.unifesspa.malves.photovoltaics.Panel;
 import br.edu.unifesspa.malves.transportnetwork.DRABF;
 import br.edu.unifesspa.malves.transportnetwork.DRACF;
@@ -45,6 +46,13 @@ public class Scenario01 {
 			femtobb = new FemtoBB(Panel.radiacao[i], 3000);
 			tcoFemtoBB[i] = femtobb.estatisticas[2]/1000000.0;
 		}
+		
+		System.out.println( (dracf.estatisticas[0]*Meter.custoKwhCompra/1000000) );
+		System.out.println( drabf.estatisticas[0]*Meter.custoKwhCompra/1000000 );
+		System.out.println( femtocb.estatisticas[0]*Meter.custoKwhCompra/1000000 );
+		System.out.println( femtobb.estatisticas[0]*Meter.custoKwhCompra/1000000 );
+		
+		
 		tco.put("DRA-CF", tcoDRACF);
 		tco.put("DRA-BF", tcoDRABF);
 		tco.put("Femto-CB", tcoFemtoCB);
@@ -53,7 +61,7 @@ public class Scenario01 {
 		//Graphics
 		GraficoLinha demo = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
-				"Medium Solar Irradiance [kWh/m²/day]", 
+				"Solar Radiation [kWh/m²/day]", 
 				"TCO - Total Cost of Ownership [Million Brazilian Real - BRL]", 
 				tco, 
 				Panel.radiacao);

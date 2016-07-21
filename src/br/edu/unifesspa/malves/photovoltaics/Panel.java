@@ -46,7 +46,7 @@ public class Panel {
 	/**
 	 * 
 	 */
-	public static final double radiacaoPadrao = 6;
+	public static final double radiacaoPadrao = 5.9;
 	
 	/**
 	 * 
