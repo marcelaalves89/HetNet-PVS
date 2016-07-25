@@ -58,8 +58,8 @@ public class DRABasedDeployment extends MacroOnlyDeployment implements HetNet {
 	 * Performs the calculation of Total Number of MacroBS's
 	 */
 	public void getNumeroDeMacros() {	
-		double densidadeDeUsuariosIndoor = this.densidadeDeUsuarios*0.8;
-		double densidadeDeUsuariosOutdoor = this.densidadeDeUsuarios*0.2;
+		double densidadeDeUsuariosIndoor = this.densidadeDeUsuarios*Environment.porcentagemUsuariosIndoor;
+		double densidadeDeUsuariosOutdoor = this.densidadeDeUsuarios*Environment.porcentagemUsuariosOutdoor;
 		for (int i=0; i<DRA.taxaDePenetracao.length; i++){
 			double temp = (densidadeDeUsuariosOutdoor + (densidadeDeUsuariosIndoor*(1-DRA.taxaDePenetracao[i])))*Environment.alphaMaximo*Environment.area;
 			this.numeroDeMacros[i] = Util.getDivisao(this.numeroDeUsuarioAtivosPorMacro, temp);
@@ -84,24 +84,6 @@ public class DRABasedDeployment extends MacroOnlyDeployment implements HetNet {
 	 * 
 	 */
 	public void debug(){
-		//Printing values for debug
-		System.out.println("Max Number of DRA Buildings:");
-		Util.imprime(this.numeroMaximoDePrediosComDRA);
-		System.out.println();
 
-		//Printing the total number of DRA antennas
-		System.out.println("Total Number of DRA antennas:");
-		Util.imprime(this.numeroDeAntenasDRA);
-		System.out.println();
-
-		//Printing the number of DRA antennas per building
-		System.out.println("Number of DRA Antennas per Building:");
-		Util.imprime(this.numeroDeAntenasDRAPorPredio);
-		System.out.println();
-
-		//Printing the number of macros heterogeneous network
-		System.out.println("Number of Macros (Macro+DRA-CF Architecture):");
-		Util.imprime(this.numeroDeMacros);
-		System.out.println();
 	}
 }

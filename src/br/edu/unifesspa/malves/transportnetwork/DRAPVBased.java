@@ -68,6 +68,9 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 	 */
 	public double numeroPaineisPorInversor;
 
+	/**
+	 * 
+	 */
 	private double[][] matrizConsumoMinimo;
 
 	/**

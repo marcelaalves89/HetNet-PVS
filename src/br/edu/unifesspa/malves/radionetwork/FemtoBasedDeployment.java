@@ -53,8 +53,8 @@ public class FemtoBasedDeployment extends MacroOnlyDeployment {
 	 * Performs the calculation of Total Number of MacroBS's
 	 */
 	public void getNumeroDeMacros() {		
-		double densidadeDeUsuariosIndoor = this.densidadeDeUsuarios*0.8;
-		double densidadeDeUsuariosOutdoor = this.densidadeDeUsuarios*0.2;
+		double densidadeDeUsuariosIndoor = this.densidadeDeUsuarios*Environment.porcentagemUsuariosIndoor;
+		double densidadeDeUsuariosOutdoor = this.densidadeDeUsuarios*Environment.porcentagemUsuariosOutdoor;
 		for (int i=0; i<Femto.taxaDePenetracao.length; i++){
 			double temp = (densidadeDeUsuariosOutdoor + (densidadeDeUsuariosIndoor*(1-Femto.taxaDePenetracao[i])))*Environment.alphaMaximo*Environment.area;
 			this.numeroDeMacros[i] = Util.getDivisao(this.numeroDeUsuarioAtivosPorMacro, temp);
@@ -62,42 +62,32 @@ public class FemtoBasedDeployment extends MacroOnlyDeployment {
 	}
 
 	/**
-	 * 
+	 * Performs the calculation of Total Number of FemtoBS's
 	 */
 	public void getNumeroFemtos(){
-		this.numeroMaximoDePrediosComFemto = Util.getProdutoPorEscalar(Femto.taxaDePenetracao,Environment.numeroMaximoPredios);
-
+		double num_House = (this.densidadeDeUsuarios*Environment.area)/3.0;
+		
+		//NumBuilding_max = Num_House/Num_apartaments_per_building
+		double numBuildingMax = num_House/(Environment.numeroApartamentosPorPredio);
+		
+		//eta_f_numBuildings = NumBuilding_max * eta_f
+		this.numeroMaximoDePrediosComFemto = Util.getProdutoPorEscalar(Femto.taxaDePenetracao,numBuildingMax);		
+		
 		for (int i=0; i<Femto.taxaDePenetracao.length; i++){
-			this.numeroDeFemtos[i][0] = this.numeroMaximoDePrediosComFemto[i]*Environment.numeroDeAndaresPorPredio;
+			//N_femto(i) = Num_House*eta*(1-offgain)
+			this.numeroDeFemtos[i][0] = num_House * Femto.taxaDePenetracao[i] *(1-FemtoBasedDeployment.offGain);
 			if (i>0)
-				this.numeroDeFemtosPorPredio[i] = (this.numeroDeFemtos[i][0]/this.numeroMaximoDePrediosComFemto[i]);
+				this.numeroDeFemtosPorPredio[i] = Math.rint((this.numeroDeFemtos[i][0]/this.numeroMaximoDePrediosComFemto[i]));
 			else this.numeroDeFemtosPorPredio[i] = 0;
 		}
 	}
 
 	/**
-	 * 
+	 * Print values for Debug
 	 */
 	public void debug(){
-		//Printing values for debug
-		//Max Number of Buildings with Femto
-		System.out.println("Numero de Predios com Femtos:");
-		Util.imprime(this.numeroMaximoDePrediosComFemto);
-		System.out.println();
-
-		//Number of FemtoBS's
-		System.out.println("Number of FemtoBS's:");
-		Util.imprime(this.numeroDeFemtos);
-		System.out.println();
-
-		//Number of FemtoBS's per Building
-		System.out.println("Number of FemtoBS's per Building:");
-		Util.imprime(this.numeroDeFemtosPorPredio);
-		System.out.println();
-
-		//Number of Macro BS (in HetNet)
-		System.out.println("Number of Macro BS (in HetNet): ");
+		System.out.println("Number of Macro BS's in HetNet: ");
 		Util.imprime(this.numeroDeMacros);
-		System.out.println();
+
 	}
 }
