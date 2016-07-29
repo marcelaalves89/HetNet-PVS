@@ -8,7 +8,7 @@ public abstract class DRA {
 	
 	public static final double numeroDePortasDUporRackDU = 200;
 	
-	public static final double potenciaAntenaAmplificadora = 5;
+	public static final double potenciaAntenaAmplificadora = 25;
 	
 	public static final double potenciaRRU = 100;
 	

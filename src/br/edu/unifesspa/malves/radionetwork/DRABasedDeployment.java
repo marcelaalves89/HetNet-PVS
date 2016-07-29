@@ -10,7 +10,7 @@ import br.edu.unifesspa.malves.wireless.DRA;
  * @since	2016-06-18
  *
  */
-public class DRABasedDeployment extends MacroOnlyDeployment implements HetNet {
+public class DRABasedDeployment extends MacroOnlyDeployment {
 
 	/**
 	 * Represents the max number of building equipped with DRA systems
@@ -51,23 +51,23 @@ public class DRABasedDeployment extends MacroOnlyDeployment implements HetNet {
 
 		this.getNumeroDeMacros();
 		this.getNumeroDRAS();
-		//this.debug();
 	}
 
 	/**
-	 * Performs the calculation of Total Number of MacroBS's
+	 * Total Number of MacroBS's
 	 */
 	public void getNumeroDeMacros() {	
 		double densidadeDeUsuariosIndoor = this.densidadeDeUsuarios*Environment.porcentagemUsuariosIndoor;
 		double densidadeDeUsuariosOutdoor = this.densidadeDeUsuarios*Environment.porcentagemUsuariosOutdoor;
 		for (int i=0; i<DRA.taxaDePenetracao.length; i++){
-			double temp = (densidadeDeUsuariosOutdoor + (densidadeDeUsuariosIndoor*(1-DRA.taxaDePenetracao[i])))*Environment.alphaMaximo*Environment.area;
+			double mu = (1-DRA.taxaDePenetracao[i]);
+			double temp = (densidadeDeUsuariosOutdoor + (densidadeDeUsuariosIndoor*mu))*Environment.alphaMaximo*Environment.area;
 			this.numeroDeMacros[i] = Util.getDivisao(this.numeroDeUsuarioAtivosPorMacro, temp);
 		}
-	}
+}
 
 	/**
-	 * Performs the calculation of Total Number of DRA antennas, Number of DRA Antennas per Building and Number of Macros Heterogeneous Network
+	 * Total Number of DRA antennas, DRA Antennas per Building
 	 */
 	public void getNumeroDRAS(){
 		this.numeroMaximoDePrediosComDRA = Util.getProdutoPorEscalar(DRA.taxaDePenetracao,Environment.numeroMaximoPredios);
@@ -77,13 +77,9 @@ public class DRABasedDeployment extends MacroOnlyDeployment implements HetNet {
 			if (i>0)
 				this.numeroDeAntenasDRAPorPredio[i] = (this.numeroDeAntenasDRA[i][0]/this.numeroMaximoDePrediosComDRA[i]);
 			else this.numeroDeAntenasDRAPorPredio[i] = 0;
-		}		 
-	}
-
-	/**
-	 * 
-	 */
-	public void debug(){
-
+		}
+		
+		System.out.println("Hugo1");
+		Util.imprime(numeroDeAntenasDRA);
 	}
 }

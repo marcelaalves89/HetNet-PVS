@@ -11,7 +11,7 @@ import br.edu.unifesspa.malves.wireless.DRA;
  *
  */
 public class DRACF extends DRAPVBased{
-	
+
 	/**
 	 * Super constructor call and initializing values
 	 */
@@ -30,11 +30,13 @@ public class DRACF extends DRAPVBased{
 	 * The Power Consumption of DRA-CF Only (KWH)
 	 */
 	public void getConsumoDRA(){		
-		double temp = (DRA.potenciaRRU + 2*Fiber.potenciaSFP + DRA.potenciaPorPortaDU + (DRA.potenciaPorRackDU/DRA.numeroDePortasDUporRackDU))/DRA.numeroMaximoDeAntenasPorRRU;
-		this.potenciaDRAOnly = Util.getSoma(
-				Util.getProdutoPorEscalar(super.numeroDeAntenasDRA, temp),
-				Util.getProdutoPorEscalar(super.numeroDeAntenasDRA, DRA.potenciaAntenaAmplificadora)
-				);		
+		double[][] temp = Util.getProdutoPorEscalar(super.numeroDeAntenasDRA, DRA.potenciaAntenaAmplificadora);		
+		double[][] temp2 = Util.getDivisao(super.numeroDeAntenasDRA, DRA.numeroMaximoDeAntenasPorRRU);		
+		double temp3 = DRA.potenciaRRU+2*Fiber.potenciaSFP+DRA.potenciaPorPortaDU+(DRA.potenciaPorRackDU/DRA.numeroDePortasDUporRackDU);
+		
+		temp2 = Util.getProdutoPorEscalar(temp2, temp3);		
+		this.potenciaDRAOnly = Util.getSoma(temp, temp2); 
+
 		Util.converterEmKWH(this.potenciaDRAOnly);
 		this.potenciaTotal = Util.getSoma(this.potenciaMacroOnly,this.potenciaDRAOnly);
 	}

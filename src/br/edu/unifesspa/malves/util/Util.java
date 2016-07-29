@@ -1,5 +1,6 @@
 package br.edu.unifesspa.malves.util;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 public class Util {
@@ -15,6 +16,24 @@ public class Util {
 		for (int i=0; i<matriz.length; i++)
 			for (int j=0; j<matriz[0].length; j++)
 				results[i][j] = matriz[i][j] * escalar;
+		return results;
+	}
+	
+	public static double[][] formataValores(double[][] matriz){
+		double[][] results = new double[matriz.length][matriz[0].length];
+		DecimalFormat formato = new DecimalFormat("#.####");   
+		for (int i=0; i<matriz.length; i++)
+			for (int j=0; j<matriz[0].length; j++){
+				results[i][j] = Double.valueOf(formato.format(matriz[i][j]).replace(',', '.'));
+			}
+		return results;
+	}
+	
+	public static double[] formataValores(double[] vetor){
+		double[] results = new double[vetor.length];
+		DecimalFormat formato = new DecimalFormat("#.####");   
+		for (int i=0; i<vetor.length; i++)
+			results[i] = Double.valueOf(formato.format(vetor[i]).replace(',', '.'));			
 		return results;
 	}
 	
@@ -234,7 +253,20 @@ public class Util {
 	public static double[] getDivisao(double[] vetor, double dividendo){
 		double[] results = new double[vetor.length];
 		for (int i=0; i<vetor.length; i++)
-			results[i] = dividendo/vetor[i];
+			results[i] = Math.ceil(dividendo/vetor[i]);
+		return results;
+	}
+	
+	/**
+	 * 
+	 * @param vetor
+	 * @param dividendo
+	 * @return
+	 */
+	public static double[][] getDivisao(double[][] vetorColuna, double divisor){
+		double[][] results = new double[vetorColuna.length][vetorColuna[0].length];
+		for (int i=0; i<vetorColuna.length; i++)
+			results[i][0] = Math.ceil(vetorColuna[i][0]/divisor);
 		return results;
 	}
 	

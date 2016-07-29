@@ -16,7 +16,7 @@ public abstract class Macro {
 	
 	public static final double demandaPicoPorMacro = Macro.capacidadeDaCelula;
 	
-	public static final double demandaMediaPorMacro = Macro.capacidadeDaCelula*9.64/16.0;
+	public static final double demandaMediaPorMacro = Macro.capacidadeDaCelula*9.64/16.0;	
 	
-	public static final double potencia = Macro.numeroDeSetores*(Macro.aM*Macro.potenciaDeTransmissao+Macro.bM);
+	public static final double potencia = 650;
 }

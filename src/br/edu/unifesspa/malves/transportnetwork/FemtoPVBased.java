@@ -4,14 +4,14 @@ import br.edu.unifesspa.malves.backhaul.Microwave;
 import br.edu.unifesspa.malves.photovoltaics.Inverter;
 import br.edu.unifesspa.malves.photovoltaics.Meter;
 import br.edu.unifesspa.malves.photovoltaics.Panel;
-import br.edu.unifesspa.malves.radionetwork.FemtoBasedDeployment;
+import br.edu.unifesspa.malves.radionetwork.FemtoBasedDeployment2;
 import br.edu.unifesspa.malves.tco.CAPEX;
 import br.edu.unifesspa.malves.tco.OPEX;
 import br.edu.unifesspa.malves.trafficforecast.Environment;
 import br.edu.unifesspa.malves.util.Util;
 import br.edu.unifesspa.malves.wireless.Macro;
 
-public abstract class FemtoPVBased extends FemtoBasedDeployment{
+public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 
 	/**
 	 * Total Power Consumption of DRA-CF Deployment, including the power consumption of the outdoor macro BS network
@@ -90,7 +90,7 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 	 * Calculating the Total Power Consumption of Macro+DRA-CF Architecture (KWH)
 	 */
 	public void getConsumoMacro(){				
-		this.potenciaMacroOnly = Util.getSoma(Util.getProdutoPorEscalar(super.numeroDeMacros,Macro.potencia),Util.getProdutoPorEscalar(this.numeroDeMacros, 2.0*Microwave.potenciaBaixa));		
+		this.potenciaMacroOnly = Util.getProdutoPorEscalar(super.numeroDeMacros,Macro.potencia+(2.0*Microwave.potenciaBaixa));		
 		Util.converterEmKWH(potenciaMacroOnly);
 	}
 
@@ -165,20 +165,12 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 		
 		double[] b = Util.getSomaPorColuna(this.matrizConsumoMinimo);
 		double[] c = Util.getDiferenca(this.consumoTotal, b);
-		
-		int anoPagamento = 0;
-		boolean achou = true;
+	
 		for (int i=0; i<consumoTotal.length; i++){
 			somaConsumo += (this.consumoTotal[i]*365);			
-			somaGeracao += (this.potenciaGerada[i]*365);
-			if ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda)>this.tco[20] && achou){
-				anoPagamento = i;
-				achou  = false;
-			}
+			somaGeracao += (this.potenciaGerada[i]*365);			
 			somaASerGerada += (c[i]*365);
-		}		
-		System.out.println("TesteD: "+anoPagamento);
-		
+		}				
 		
 		diferenca = somaGeracao - somaASerGerada;		
 		this.estatisticas[0] = somaConsumo;
@@ -187,7 +179,7 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 		
 		double temp = ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda))-this.tco[20];		
 		this.estatisticas[3] = (temp/(this.densidadeDeUsuarios*Environment.area))/Environment.anos.length;		
-		this.estatisticas[5] = somaASerGerada;				
+		this.estatisticas[5] = somaASerGerada;
 	}
 		
 	public abstract void getConsumoFemto();

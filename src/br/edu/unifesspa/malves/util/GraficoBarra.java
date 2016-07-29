@@ -57,8 +57,6 @@ public class GraficoBarra extends ApplicationFrame {
 		BarRenderer br = (BarRenderer) plot.getRenderer();
 		br.setMaximumBarWidth(.1);
 		
-		
-		
 		return chart;
 	}
 

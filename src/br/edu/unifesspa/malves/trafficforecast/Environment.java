@@ -21,7 +21,9 @@ public abstract class Environment {
 	/**
 	 * 
 	 */
-	public static final double[] densidadeDeUsuarios = {500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3500, 3500, 3750, 4000, 4250, 4500, 4750, 5000};
+	public static final double[] densidadeDeUsuarios = {1000, 1500, 2000, 2500, 3000, 3500, 3500, 4000, 4500, 5000};
+	
+	//public static final double[] densidadeDeUsuarios = {2750, 3000, 3500, 3500, 3750, 4000, 4250, 4500, 4750, 5000};
 	
 	/**
 	 * Default User density
@@ -31,12 +33,12 @@ public abstract class Environment {
 	/**
 	 * 
 	 */
-	public static final double porcentagemUsuariosIndoor = 0.8;
+	public static final double porcentagemUsuariosIndoor = 0.6;
 		
 	/**
 	 * 
 	 */
-	public static final double porcentagemUsuariosOutdoor = 0.2;
+	public static final double porcentagemUsuariosOutdoor = 0.4;
 	
 	/**
 	 * Geographic area (km²)

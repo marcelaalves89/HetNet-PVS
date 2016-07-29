@@ -15,8 +15,8 @@ public class DRABF extends DRAPVBased{
 	/**
 	 * Super constructor call and initializing values
 	 */
-	public DRABF(double hsp, double densidadeDeUsuarios){
-		super(hsp, densidadeDeUsuarios);
+	public DRABF(double radiacao, double densidadeDeUsuarios){
+		super(radiacao, densidadeDeUsuarios);
 		this.nome = "Macro+DRA-BF Architecture";
 		this.getConsumoMacro();
 		this.getConsumoDRA();		
@@ -30,13 +30,16 @@ public class DRABF extends DRAPVBased{
 	 * Calculating the Power Consumption of DRA-BF Only (KWH)
 	 */
 	public void getConsumoDRA(){				
-		double temp = DRA.numeroDeRRUSporPredio*(DRA.potenciaRRU + DRA.potenciaPorPortaDU + (DRA.potenciaPorRackDU/DRA.numeroDePortasDUporRackDU));
-		temp += PON.numeroDeONUsPorPredio*(PON.potenciaONU+(PON.potenciaOLT/PON.numeroDeWaveLenghtsDWDM));		
-				
+		
+		double temp = DRA.numeroDeRRUSporPredio*(DRA.potenciaRRU + DRA.potenciaPorPortaDU 
+												 + (DRA.potenciaPorRackDU/DRA.numeroDePortasDUporRackDU))
+		+ PON.numeroDeONUsPorPredio*(PON.potenciaONU+(PON.potenciaOLT/PON.numeroDeWaveLenghtsDWDM));
+		
 		this.potenciaDRAOnly = Util.getSoma(
 				Util.getProdutoPorEscalar(super.numeroDeAntenasDRA, DRA.potenciaAntenaAmplificadora),
 				Util.getProdutoPorEscalar(super.numeroMaximoDePrediosComDRA, temp)
-				);		
+				);
+		
 		Util.converterEmKWH(this.potenciaDRAOnly);
 		this.potenciaTotal = Util.getSoma(this.potenciaMacroOnly,this.potenciaDRAOnly);
 	}
@@ -45,16 +48,11 @@ public class DRABF extends DRAPVBased{
 	 * Print values for Debug
 	 */
 	public void debug(){
-		System.out.println("Power Consumption of Macro+DRA-BF Architecture");
-		Util.imprime(this.consumoTotal);
-		System.out.println();
 
-		/*System.out.println("Power Generation of DRA-BF Architecture");
-		Util.imprime(this.potenciaGerada);
-		System.out.println();
-
-		System.out.println("TCO");
-		Util.imprime(this.tco);
-		System.out.println();*/
+	}
+	
+	public static void main(String[] args) {
+		
+		new DRABF(5.9, 3000);
 	}
 }
