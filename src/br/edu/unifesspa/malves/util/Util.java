@@ -18,7 +18,7 @@ public class Util {
 				results[i][j] = matriz[i][j] * escalar;
 		return results;
 	}
-	
+
 	public static double[][] formataValores(double[][] matriz){
 		double[][] results = new double[matriz.length][matriz[0].length];
 		DecimalFormat formato = new DecimalFormat("#.####");   
@@ -28,7 +28,7 @@ public class Util {
 			}
 		return results;
 	}
-	
+
 	public static double[] formataValores(double[] vetor){
 		double[] results = new double[vetor.length];
 		DecimalFormat formato = new DecimalFormat("#.####");   
@@ -36,7 +36,7 @@ public class Util {
 			results[i] = Double.valueOf(formato.format(vetor[i]).replace(',', '.'));			
 		return results;
 	}
-	
+
 	/**
 	 * Retorna o produto entre vetor e um numero inteiro
 	 * @param matriz
@@ -49,7 +49,7 @@ public class Util {
 			results[i] = vetor[i] * escalar;
 		return results;
 	}
-	
+
 	/**
 	 * Imprime uma matriz e seus dados
 	 * @param vetor
@@ -63,7 +63,7 @@ public class Util {
 				System.out.println("Elemento "+i+"-"+j+": "+matriz[i][j]);
 		System.out.println();
 	}
-	
+
 	/**
 	 * Imprime um vetor e seus dados
 	 * @param vetor
@@ -75,7 +75,7 @@ public class Util {
 			System.out.println("Element "+i+": "+vetor[i]);
 		System.out.println();
 	}
-	
+
 	/**
 	 * Retorna a transposta de uma matriz
 	 * @param matriz
@@ -88,12 +88,12 @@ public class Util {
 				if(coluna>linha)
 					results[linha][coluna]=matriz[coluna][linha];
 				else if(coluna==linha)
-						results[linha][coluna]=matriz[linha][coluna];
-					else
-						results[linha][coluna]=matriz[coluna][linha];
+					results[linha][coluna]=matriz[linha][coluna];
+				else
+					results[linha][coluna]=matriz[coluna][linha];
 		return results;	
 	}
-	
+
 	/**
 	 * Retorna a transposta de um vetor linha
 	 * @param vetorLinha
@@ -106,7 +106,7 @@ public class Util {
 		return results;
 	}
 
-	
+
 	/**
 	 * Retorna a i-ésima coluna de uma matriz 
 	 * @param matriz
@@ -119,7 +119,7 @@ public class Util {
 			results[i] = matriz[i][coluna];
 		return results;
 	}
-	
+
 	/**
 	 * Retorna o produto matricial em a e b (a*b)
 	 * @param a
@@ -128,14 +128,14 @@ public class Util {
 	 */
 	public static double[][] getProdutoMatricial(double[][] a, double[][] b){
 		if (a[0].length != b.length) throw new RuntimeException("Dimensões inconsistentes. Impossível multiplicar as matrizes");
-	    double[][] results = new double[ a.length ][ b[0].length ];
-	    for (int i = 0; i < a.length; i++)
-	        for (int j = 0; j < b[0].length; j++) 
-	            for (int k = 0; k < a[0].length; k++) 
-	                results[i][j] += (a[i][k] * b[k][j]);
-	    return results;
+		double[][] results = new double[ a.length ][ b[0].length ];
+		for (int i = 0; i < a.length; i++)
+			for (int j = 0; j < b[0].length; j++) 
+				for (int k = 0; k < a[0].length; k++) 
+					results[i][j] += (a[i][k] * b[k][j]);
+		return results;
 	}
-	
+
 	/**
 	 * Retorna produto matricial elemento por elemento
 	 * @return
@@ -148,7 +148,7 @@ public class Util {
 				results[i][j] = a[i][j] * b[i][j];
 		return results;
 	}
-	
+
 	/**
 	 * Retorn uma vetor linha com a soma das colunas de uma matriz
 	 * @param matriz
@@ -161,7 +161,7 @@ public class Util {
 				results[j] += matriz[i][j];
 		return results;
 	}
-	
+
 	/**
 	 * Retorn uma vetor linha com a soma das colunas de uma matriz
 	 * @param matriz
@@ -173,7 +173,7 @@ public class Util {
 			soma += matriz[i][coluna];
 		return soma;
 	}
-	
+
 	/**
 	 * 
 	 * @param numeroLinhas
@@ -187,7 +187,7 @@ public class Util {
 				results[i][j] = 0;
 		return results;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -197,7 +197,7 @@ public class Util {
 				if (i != j)
 					matriz[i][j] = matriz[i][j-1]*fator;
 	}
-	
+
 	/**
 	 * Retorn um valor (double) com o total das colunas do vetor
 	 * @param vetor
@@ -209,7 +209,7 @@ public class Util {
 			results += vetor[i];
 		return results;
 	}
-	
+
 	/**
 	 * Retorn uma collection com os valores maximos e minimos de um vetor
 	 * @param vetor
@@ -229,8 +229,8 @@ public class Util {
 		results.put("minimo", minimo);
 		return results;
 	}
-	
-	
+
+
 	/**
 	 * Retorna um vetor elevado à uma dada potencia
 	 * @param vetor
@@ -243,7 +243,7 @@ public class Util {
 			results[i] = Math.pow(vetor[i], potencia);
 		return results;
 	}
-	
+
 	/**
 	 * 
 	 * @param vetor
@@ -256,7 +256,7 @@ public class Util {
 			results[i] = Math.ceil(dividendo/vetor[i]);
 		return results;
 	}
-	
+
 	/**
 	 * 
 	 * @param vetor
@@ -269,7 +269,7 @@ public class Util {
 			results[i][0] = Math.ceil(vetorColuna[i][0]/divisor);
 		return results;
 	}
-	
+
 	/**
 	 * Soma duas matrizes
 	 * @param a
@@ -283,7 +283,7 @@ public class Util {
 				results[i][j] = a[i][j] + b[i][0];
 		return results;
 	}
-	
+
 	/**
 	 * Soma duas matrizes
 	 * @param a
@@ -297,7 +297,7 @@ public class Util {
 				results[i][j] = a[i][j] + b[i];
 		return results;
 	}
-	
+
 	/**
 	 * Soma duas matrizes
 	 * @param a
@@ -310,7 +310,7 @@ public class Util {
 			results[i] = a[i] + b[i];
 		return results;
 	}
-	
+
 	public static double[][] getDiferenca(double[][] a, double[] b){
 		double[][] results = new double[a.length][a[0].length];
 		for (int i=0; i<a.length; i++)
@@ -318,20 +318,20 @@ public class Util {
 				results[i][j] = (a[i][j] - b[i]);
 		return results;
 	}
-	
+
 	public static double[] getDiferenca(double[] a, double[] b){
 		double[] results = new double[a.length];
 		for (int i=0; i<a.length; i++)
-				results[i] = a[i] - b[i];
+			results[i] = a[i] - b[i];
 		return results;
 	}
-	
+
 	public static void converterEmKWH(double[][] a){
 		for (int i=0; i<a.length; i++)
 			for (int j=0; j<a[0].length; j++)
 				a[i][j] = ((a[i][j]*24.0)/1000.0);
 	}
-	
+
 	public static double[] getDiagonalPrincipal(double[][] matriz){
 		double[] diagonal = new double[matriz.length];
 		for (int i=0; i<matriz.length; i++)
@@ -340,4 +340,9 @@ public class Util {
 					diagonal[i] = matriz[i][j];
 		return diagonal;
 	}
+
+	public static String formataValorEmReais(double valor) {  
+		DecimalFormat d = new DecimalFormat("R$ #,##0.00");  
+		return d.format(valor);  
+	}  
 }

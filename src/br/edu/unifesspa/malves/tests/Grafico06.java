@@ -13,9 +13,9 @@ import br.edu.unifesspa.malves.transportnetwork.FemtoCB;
 import br.edu.unifesspa.malves.util.GraficoLinha;
 
 
-public class Scenario08 {
+public class Grafico06 {
 
-	public Scenario08(){
+	public Grafico06(){
 
 		HashMap<String, double[]> tco = new HashMap<String, double[]>();
 
@@ -36,18 +36,17 @@ public class Scenario08 {
 		double[] tcoFemtoBB = new double[Environment.densidadeDeUsuarios.length];
 
 		for (int i=0; i<Environment.densidadeDeUsuarios.length; i++){		
-			dracf = new DRACF(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);			
-			tcoDRACF[i] = ((dracf.estatisticas[1]*Environment.fatorCO2Padrao)/Environment.densidadeDeUsuarios[i]*Environment.area)/Environment.anos.length;
-
+			dracf = new DRACF(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
+			tcoDRACF[i] = (dracf.estatisticas[2]/(Environment.densidadeDeUsuarios[i]*Environment.area))/Environment.anos.length;
+			
 			drabf = new DRABF(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
-			tcoDRABF[i] = ((drabf.estatisticas[1]*Environment.fatorCO2Padrao)/Environment.densidadeDeUsuarios[i]*Environment.area)/Environment.anos.length;
+			tcoDRABF[i] = (drabf.estatisticas[2]/(Environment.densidadeDeUsuarios[i]*Environment.area))/Environment.anos.length;
 
 			femtocb = new FemtoCB(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
-			tcoFemtoCB[i] = ((femtocb.estatisticas[1]*Environment.fatorCO2Padrao)/Environment.densidadeDeUsuarios[i]*Environment.area)/Environment.anos.length;
+			tcoFemtoCB[i] = (femtocb.estatisticas[2]/(Environment.densidadeDeUsuarios[i]*Environment.area))/Environment.anos.length;
 
 			femtobb = new FemtoBB(Panel.radiacaoPadrao, Environment.densidadeDeUsuarios[i]);
-			tcoFemtoBB[i] = ((femtobb.estatisticas[1]*Environment.fatorCO2Padrao)/Environment.densidadeDeUsuarios[i]*Environment.area)/Environment.anos.length;
-			
+			tcoFemtoBB[i] = (femtobb.estatisticas[2]/(Environment.densidadeDeUsuarios[i]*Environment.area))/Environment.anos.length;
 		}
 		
 		tco.put("DRA-CF", tcoDRACF);
@@ -58,7 +57,7 @@ public class Scenario08 {
 		GraficoLinha demo2 = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
 				"User Density (ρ) [Users/km²]", 
-				"CO2 Emission Avoided [kg/user/year]", 
+				"Cost per User per Year [Brazilian Real - BRL]", 
 				tco, 
 				Environment.densidadeDeUsuarios);
 		demo2.pack();

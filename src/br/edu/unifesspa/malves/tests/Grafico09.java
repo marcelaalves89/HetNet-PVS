@@ -13,9 +13,9 @@ import br.edu.unifesspa.malves.transportnetwork.FemtoCB;
 import br.edu.unifesspa.malves.util.GraficoLinha;
 
 
-public class Scenario09 {
+public class Grafico09 {
 
-	public Scenario09(){
+	public Grafico09(){
 
 		HashMap<String, double[]> consumo = new HashMap<String, double[]>();
 		

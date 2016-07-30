@@ -12,9 +12,9 @@ import br.edu.unifesspa.malves.transportnetwork.FemtoBB;
 import br.edu.unifesspa.malves.transportnetwork.FemtoCB;
 import br.edu.unifesspa.malves.util.GraficoBarra;
 
-public class Scenario04 {
+public class Grafico04 {
 
-	public Scenario04(){
+	public Grafico04(){
 		HashMap<String, Double> emissao = new HashMap<String, Double>();
 
 		DRACF dracf = new DRACF(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
@@ -34,7 +34,6 @@ public class Scenario04 {
 		emissao.put("Femto-CB", emissaoFemtoCB);
 		emissao.put("Femto-BB", emissaoFemtoBB);
 
-		//Graphics
 		GraficoBarra demo = new GraficoBarra(
 				this.getClass().getSimpleName(), 
 				"", 

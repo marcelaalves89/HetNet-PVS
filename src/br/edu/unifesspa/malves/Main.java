@@ -1,9 +1,6 @@
 package br.edu.unifesspa.malves;
 
-import br.edu.unifesspa.malves.tests.Scenario01;
-import br.edu.unifesspa.malves.tests.Scenario02;
-import br.edu.unifesspa.malves.tests.Scenario03;
-import br.edu.unifesspa.malves.tests.Scenario04;
+
 
 /**
  * 
@@ -15,17 +12,17 @@ public class Main {
 
 	public static void main(String[] args) {
 		//Variando a Radiação
-		new Scenario01();		
-		new Scenario02();
-		new Scenario03();				
-		new Scenario04();
+		//new Grafico01();		
+		//new Grafico02();
+		//new Grafico03();				
+		//new Grafico04();
 				
 		//Variando a Densidade de Usuários
-		//new Scenario05();
-		//new Scenario06();
-		//new Scenario07();
-		//new Scenario08();
-		//new Scenario09();	
+		//new Grafico05();
+		//new Grafico06();
+		//new Grafico07();
+		//new Grafico08();
+		//new Grafico09();	
 		
 	}
 }

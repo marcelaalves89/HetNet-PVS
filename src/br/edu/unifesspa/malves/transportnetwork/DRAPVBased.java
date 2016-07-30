@@ -46,7 +46,7 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 	/**
 	 * Generated power
 	 */
-	public double[] potenciaGerada;
+	public double[] energiaGerada;
 
 	/**
 	 * TCO
@@ -86,7 +86,7 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 		this.numeroInversores = new double[dimensao];
 		this.consumoTotal = new double[dimensao];
 		this.consumoASerGerado = new double[dimensao];
-		this.potenciaGerada = new double[dimensao];
+		this.energiaGerada = new double[dimensao];
 		this.tco = new double[dimensao];
 		this.estatisticas = new double[6];
 		this.radiacao = radiacao;
@@ -112,7 +112,7 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 		this.numeroPaineisPorInversor = (Inverter.potenciaNominalEntrada*Panel.hspPadrao)/potenciaSaidaPainel;		
 		double potenciaSaidaInversor = Inverter.eficiencia*this.numeroPaineisPorInversor*potenciaSaidaPainel;
 	
-		for (int i=0; i<this.potenciaGerada.length; i++){
+		for (int i=0; i<this.energiaGerada.length; i++){
 									
 			this.consumoASerGerado[i] = this.consumoTotal[i] - Util.getSomaPorColuna(matrizDePotencia, i);
 			double numeroDeMedidores = Math.ceil(this.consumoASerGerado[i]/potenciaSaidaInversor);
@@ -126,7 +126,7 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 			Util.getDepreciacao(matrizDePotencia,Panel.taxaDesempenho);
 			Util.getDepreciacao(this.matrizConsumoMinimo,1);
 		}
-		this.potenciaGerada = Util.getSomaPorColuna(matrizDePotencia);
+		this.energiaGerada = Util.getSomaPorColuna(matrizDePotencia);
 		this.estatisticas[4] = Util.getSomaColunasVetor(Util.getSomaPorColuna(this.matrizConsumoMinimo))*365/1000;		
 	}
 
@@ -169,13 +169,13 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 	public void getEstatisticas(){		
 		double somaConsumo = 0, somaGeracao = 0, somaASerGerada = 0, diferenca = 0;
 		
-		double[] b = Util.getSomaPorColuna(this.matrizConsumoMinimo);
-		double[] c = Util.getDiferenca(this.consumoTotal, b);
+		double[] disponibilidadeMinimoDaRede = Util.getSomaPorColuna(this.matrizConsumoMinimo);
+		double[] energiaMinimaASerGerada = Util.getDiferenca(this.consumoTotal, disponibilidadeMinimoDaRede);
 
 		for (int i=0; i<consumoTotal.length; i++){
 			somaConsumo += (this.consumoTotal[i]*365);			
-			somaGeracao += (this.potenciaGerada[i]*365);
-			somaASerGerada += (c[i]*365);
+			somaGeracao += (this.energiaGerada[i]*365);
+			somaASerGerada += (energiaMinimaASerGerada[i]*365);
 		}		
 				
 		diferenca = somaGeracao - somaASerGerada;		

@@ -50,7 +50,7 @@ public class DRACF extends DRAPVBased{
 		System.out.println();
 
 		System.out.println("Power Generation of DRA-CF Architecture");
-		Util.imprime(this.potenciaGerada);
+		Util.imprime(this.energiaGerada);
 		System.out.println();
 
 		System.out.println("TCO");

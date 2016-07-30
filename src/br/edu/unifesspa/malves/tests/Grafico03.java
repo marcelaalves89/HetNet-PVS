@@ -5,15 +5,16 @@ import java.util.HashMap;
 import org.jfree.ui.RefineryUtilities;
 
 import br.edu.unifesspa.malves.photovoltaics.Panel;
+import br.edu.unifesspa.malves.trafficforecast.Environment;
 import br.edu.unifesspa.malves.transportnetwork.DRABF;
 import br.edu.unifesspa.malves.transportnetwork.DRACF;
 import br.edu.unifesspa.malves.transportnetwork.FemtoBB;
 import br.edu.unifesspa.malves.transportnetwork.FemtoCB;
 import br.edu.unifesspa.malves.util.GraficoLinha;
 
-public class Scenario03 {
+public class Grafico03 {
 
-	public Scenario03(){
+	public Grafico03(){
 		HashMap<String, double[]> tco = new HashMap<String, double[]>();
 
 		//DRA-CF
@@ -33,16 +34,16 @@ public class Scenario03 {
 		double[] tcoFemtoBB = new double[Panel.radiacao.length];
 
 		for (int i=0; i<Panel.radiacao.length; i++){		
-			dracf = new DRACF(Panel.radiacao[i], 3000);
+			dracf = new DRACF(Panel.radiacao[i], Environment.densidadeDeUsuariosPadrao);
 			tcoDRACF[i] = dracf.estatisticas[3];
 
-			drabf = new DRABF(Panel.radiacao[i], 3000);
+			drabf = new DRABF(Panel.radiacao[i], Environment.densidadeDeUsuariosPadrao);
 			tcoDRABF[i] = drabf.estatisticas[3];
 
-			femtocb = new FemtoCB(Panel.radiacao[i], 3000);
+			femtocb = new FemtoCB(Panel.radiacao[i], Environment.densidadeDeUsuariosPadrao);
 			tcoFemtoCB[i] = femtocb.estatisticas[3];
 
-			femtobb = new FemtoBB(Panel.radiacao[i], 3000);
+			femtobb = new FemtoBB(Panel.radiacao[i], Environment.densidadeDeUsuariosPadrao);
 			tcoFemtoBB[i] = femtobb.estatisticas[3];
 		}
 		tco.put("DRA-CF", tcoDRACF);
@@ -50,7 +51,6 @@ public class Scenario03 {
 		tco.put("Femto-CB", tcoFemtoCB);
 		tco.put("Femto-BB", tcoFemtoBB);
 
-		//Graphics
 		GraficoLinha demo = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
 				"Solar Radiation [kWh/m²/day]", 
