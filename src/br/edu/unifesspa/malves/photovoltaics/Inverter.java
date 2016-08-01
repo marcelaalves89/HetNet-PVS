@@ -22,4 +22,7 @@ public class Inverter {
 	 * kW
 	 */
 	public static final double potenciaNominalEntrada = 5.0;
+	
+	
+	public static final double garantiaInversor = 5;
 }

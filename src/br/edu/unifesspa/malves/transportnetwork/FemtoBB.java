@@ -46,16 +46,6 @@ public class FemtoBB extends FemtoPVBased {
 	 * Print values for Debug 
 	 */
 	public void debug(){
-		System.out.println("Power Consumption of Femto-BB Architecture");
-		Util.imprime(this.consumoTotal);
-		System.out.println();
-
-		System.out.println("Power Generation of Femto-BB Architecture");
-		Util.imprime(this.potenciaGerada);
-		System.out.println();
-
-		System.out.println("TCO");
-		Util.imprime(this.tco);
-		System.out.println();
+		
 	}
 }

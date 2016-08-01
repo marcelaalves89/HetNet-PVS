@@ -1,5 +1,7 @@
 package br.edu.unifesspa.malves.photovoltaics;
 
+import br.edu.unifesspa.malves.trafficforecast.Environment;
+
 /**
  * 
  * @author Marcela Alves
@@ -19,6 +21,11 @@ public class Panel {
 	public static final double area = 1.6085;
 	
 	/**
+	 * 
+	 */
+	public static final double garantiaPainel = 25;
+	
+	/**
 	 * Panel Acquisition Cost (in Brazilian Real R$)
 	 */
 	public static final double custoPorPainel = 835.00;
@@ -36,7 +43,7 @@ public class Panel {
 	/**
 	 * 
 	 */
-	public static final double hspPadrao = 5.9;
+	public static final double hspPadrao = 6.5;
 	
 	/**
 	 * 
@@ -46,7 +53,7 @@ public class Panel {
 	/**
 	 * 
 	 */
-	public static final double radiacaoPadrao = 5.9;
+	public static final double radiacaoPadrao = 7.5;
 	
 	/**
 	 * 
@@ -57,4 +64,14 @@ public class Panel {
 	 * 
 	 */
 	public static final double custoKitInstalacao = 199.75;
+	
+	/**
+	 * 
+	 */
+	public static final double garantiaKitInstalacao = 12;
+	
+	/**
+	 * 
+	 */
+	public static final double custoAluguelDiario = (100.0*Environment.cotacaoDolar)/365.0;  
 }

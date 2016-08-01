@@ -1,6 +1,6 @@
 package br.edu.unifesspa.malves;
 
-
+import br.edu.unifesspa.malves.tests.Grafico09;
 
 /**
  * 
@@ -22,7 +22,7 @@ public class Main {
 		//new Grafico06();
 		//new Grafico07();
 		//new Grafico08();
-		//new Grafico09();	
+		new Grafico09();	
 		
 	}
 }

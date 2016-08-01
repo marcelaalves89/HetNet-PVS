@@ -74,4 +74,6 @@ public abstract class Environment {
 	 * 
 	 */
 	public static final double fatorCO2Padrao = 0.6;
+	
+	public static final double cotacaoDolar = 3.243;
 }

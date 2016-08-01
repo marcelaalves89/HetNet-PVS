@@ -103,8 +103,8 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 	/**
 	 * 
 	 */
-	public void getPotenciaDeGeracao(){
-		this.consumoTotal = Util.getDiagonalPrincipal(this.potenciaTotal);
+	public void getPotenciaDeGeracao(){		
+		this.consumoTotal = Util.getDiagonalPrincipal(this.potenciaTotal);		
 		double[][] matrizDePotencia = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 		this.matrizConsumoMinimo = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 
@@ -127,7 +127,7 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 			Util.getDepreciacao(this.matrizConsumoMinimo,1);
 		}
 		this.energiaGerada = Util.getSomaPorColuna(matrizDePotencia);
-		this.estatisticas[4] = Util.getSomaColunasVetor(Util.getSomaPorColuna(this.matrizConsumoMinimo))*365/1000;		
+		this.estatisticas[4] = Util.getSomaColunasVetor(Util.getSomaPorColuna(this.matrizConsumoMinimo))*365/1000;
 	}
 
 	/**
@@ -137,28 +137,40 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 		double[][] matrizCAPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 		double[][] matrizOPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 		double opex = 0;
+		
+		double somaPaineis = 0;
+		
+		
 		for (int i=0; i<this.consumoTotal.length; i++){			
 			double numeroTotalDePaineis = this.numeroInversores[i]*this.numeroPaineisPorInversor;
-
-			//CAPEX
-			matrizCAPEX[i][i] = (numeroTotalDePaineis*Panel.custoPorPainel 
-					+ numeroInversores[i]*Inverter.custo) 
-					+ numeroTotalDePaineis * Panel.custoKitInstalacao;
 			
-			double capexInicial = matrizCAPEX[i][i]; 			
-			Util.getDepreciacao(matrizCAPEX, CAPEX.taxaDepreciacaoFinanceira);			
+			somaPaineis += numeroTotalDePaineis; 
+			
+			double custoPaineis = numeroTotalDePaineis*Panel.custoPorPainel;
+			double custoInversores = numeroInversores[i]*Inverter.custo;
+			double custoKitDeInstalacao = numeroTotalDePaineis * Panel.custoKitInstalacao;
+			
+			//CAPEX
+			matrizCAPEX[i][i] = (custoPaineis + custoInversores + custoKitDeInstalacao);
+			Util.getDepreciacao(matrizCAPEX, CAPEX.taxaDepreciacaoFinanceira);
+			matrizCAPEX[i][i] += CAPEX.taxaDeInstalacao*(custoPaineis + custoInversores + custoKitDeInstalacao);
 
 			//OPEX
-			for (int j=0; j<matrizOPEX.length; j++)
-				matrizOPEX[i][i] = matrizCAPEX[i][i]*OPEX.taxaManutencao;
+			matrizOPEX[i][i] = custoPaineis*OPEX.taxaManutencao;
 			Util.getDepreciacao(matrizOPEX, 1);
 			
-			matrizOPEX[i][i] += capexInicial * OPEX.taxaInstalacao;
-			matrizOPEX[i][i] += this.numeroInversores[i]*Meter.consumoMinimo*Meter.custoKwhCompra;
 			matrizOPEX[i][i] += this.numeroInversores[i]*Meter.custoInstalacao;
-
+			
+			for (int j=i; j<matrizOPEX[0].length; j++){
+				if (j+Inverter.garantiaInversor < matrizOPEX[0].length)
+					matrizOPEX[i][j+(int)Inverter.garantiaInversor] += custoInversores * OPEX.taxaManutencao;
+				if (j+Panel.garantiaKitInstalacao < matrizOPEX[0].length)
+					matrizOPEX[i][j+(int)Panel.garantiaKitInstalacao] += custoKitDeInstalacao * OPEX.taxaManutencao;				
+				matrizOPEX[i][j] += this.numeroInversores[i]*Meter.consumoMinimo*Meter.custoKwhCompra*365;
+			}							
 			opex = Util.getSomaColunasVetor(Util.getSomaPorColuna(matrizOPEX));
 		}
+		opex += somaPaineis*Panel.area*Panel.custoAluguelDiario*365;
 		this.tco = Util.getSomaPorColuna(matrizCAPEX);
 		this.tco[20] += opex;
 	}
@@ -167,8 +179,7 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 	 * 
 	 */
 	public void getEstatisticas(){		
-		double somaConsumo = 0, somaGeracao = 0, somaASerGerada = 0, diferenca = 0;
-		
+		double somaConsumo = 0, somaGeracao = 0, somaASerGerada = 0, diferenca = 0;		
 		double[] disponibilidadeMinimoDaRede = Util.getSomaPorColuna(this.matrizConsumoMinimo);
 		double[] energiaMinimaASerGerada = Util.getDiferenca(this.consumoTotal, disponibilidadeMinimoDaRede);
 
