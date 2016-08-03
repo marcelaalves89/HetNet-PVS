@@ -24,7 +24,7 @@ public class Meter {
 	public static final double custoKwhVenda = 0.525390;
 	
 	/**
-	 * kWh
+	 * Consumo Mínimo Diario por Medidor (KwH)
 	 */
 	public static final double consumoMinimo = 0.2739;
 }

@@ -11,7 +11,7 @@ public class Inverter {
 	/**
 	 * Inverter Acquisition Cost (in Brazilian Real R$)
 	 */
-	public static final double custo = 2846.37;
+	public static final double custo = 7728.00;
 	
 	/**
 	 * 
@@ -21,8 +21,10 @@ public class Inverter {
 	/**
 	 * kW
 	 */
-	public static final double potenciaNominalEntrada = 5.0;
+	public static final double potenciaNominalEntrada = 36.0;
 	
-	
+	/**
+	 * 
+	 */
 	public static final double garantiaInversor = 5;
 }

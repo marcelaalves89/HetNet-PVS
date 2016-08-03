@@ -1,6 +1,5 @@
 package br.edu.unifesspa.malves.photovoltaics;
 
-import br.edu.unifesspa.malves.trafficforecast.Environment;
 
 /**
  * 
@@ -13,12 +12,12 @@ public class Panel {
 	/**
 	 * Rated Power in Watts (W)
 	 */
-	public static final double potenciaNominal = 265;
+	public static final double potenciaNominal = 315;
 	
 	/**
 	 * Panel Area in m²
 	 */
-	public static final double area = 1.6085;
+	public static final double area = 1.918828;
 	
 	/**
 	 * 
@@ -28,12 +27,12 @@ public class Panel {
 	/**
 	 * Panel Acquisition Cost (in Brazilian Real R$)
 	 */
-	public static final double custoPorPainel = 835.00;
+	public static final double custoPorPainel = 989.00;
 	
 	/**
 	 * 
 	 */
-	public static final double eficiencia = 0.1616;
+	public static final double eficiencia = 0.1642;
 	
 	/**
 	 * 
@@ -53,7 +52,7 @@ public class Panel {
 	/**
 	 * 
 	 */
-	public static final double radiacaoPadrao = 7.5;
+	public static final double radiacaoPadrao = 6.5;
 	
 	/**
 	 * 
@@ -71,7 +70,7 @@ public class Panel {
 	public static final double garantiaKitInstalacao = 12;
 	
 	/**
-	 * 
+	 * Custo Diario do Aluguel por M2
 	 */
-	public static final double custoAluguelDiario = (100.0*Environment.cotacaoDolar)/365.0;  
+	public static final double custoAluguelDiario = 1.2476;
 }

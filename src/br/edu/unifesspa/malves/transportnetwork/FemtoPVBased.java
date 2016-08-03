@@ -97,14 +97,14 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 	/**
 	 * 
 	 */
-	public void getPotenciaDeGeracao(){
+	public void getPotenciaDeGeracao(){		
 		this.consumoTotal = Util.getDiagonalPrincipal(this.potenciaTotal);		
 		double[][] matrizDePotencia = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 		this.matrizConsumoMinimo = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 
-		double potenciaSaidaPainel = Panel.area*Panel.eficiencia*this.radiacao;
-		this.numeroPaineisPorInversor = (Inverter.potenciaNominalEntrada*Panel.hspPadrao)/potenciaSaidaPainel;		
-		double potenciaSaidaInversor = Inverter.eficiencia*this.numeroPaineisPorInversor*potenciaSaidaPainel;
+		double geracaoDiariadoPainel = Panel.area*Panel.eficiencia*this.radiacao;
+		this.numeroPaineisPorInversor = Math.floor((Inverter.potenciaNominalEntrada*Panel.hspPadrao)/geracaoDiariadoPainel);		
+		double potenciaSaidaInversor = Inverter.eficiencia*this.numeroPaineisPorInversor*geracaoDiariadoPainel;
 	
 		for (int i=0; i<this.energiaGerada.length; i++){
 									
@@ -121,7 +121,7 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 			Util.getDepreciacao(this.matrizConsumoMinimo,1);
 		}
 		this.energiaGerada = Util.getSomaPorColuna(matrizDePotencia);
-		this.estatisticas[4] = Util.getSomaColunasVetor(Util.getSomaPorColuna(this.matrizConsumoMinimo))*365/1000;		
+		this.estatisticas[4] = Util.getSomaColunasVetor(Util.getSomaPorColuna(this.matrizConsumoMinimo))*365/1000;
 	}
 	
 	/**
