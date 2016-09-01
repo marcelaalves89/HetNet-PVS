@@ -80,6 +80,8 @@ public class GraficoLinha extends ApplicationFrame {
 		plot.setRangeGridlinePaint(new Color(0x00, 0x00, 0x00));
 
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(){
+			
+			
 
 			private static final long serialVersionUID = 1L;
 			Stroke soild = new BasicStroke(3.0f);
@@ -98,6 +100,10 @@ public class GraficoLinha extends ApplicationFrame {
 			}
 		};
 
+		renderer.setSeriesPaint(0, Color.MAGENTA); 
+		renderer.setSeriesPaint(1, Color.RED);
+		renderer.setSeriesPaint(2, Color.BLUE); 
+		renderer.setSeriesPaint(3, Color.DARK_GRAY);
 		renderer.setBaseShapesVisible(true);
 		renderer.setBaseShapesFilled(true);
 		renderer.setBaseStroke(new BasicStroke(4));
