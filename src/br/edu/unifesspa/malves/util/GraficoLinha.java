@@ -1,7 +1,12 @@
 package br.edu.unifesspa.malves.util;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Stroke;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -9,6 +14,7 @@ import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
@@ -26,6 +32,8 @@ public class GraficoLinha extends ApplicationFrame {
 	 */
 	private static final long serialVersionUID = 3222603704302811628L;
 	
+	private String tituloJanela;
+	
 	private String tituloGrafico;
 	
 	private String tituloEixoX;
@@ -38,6 +46,7 @@ public class GraficoLinha extends ApplicationFrame {
 
 	public GraficoLinha(String tituloJanela, String tituloGrafico, String tituloEixoX, String tituloEixoY, HashMap<String, double[]> dadosX, double[] dadosY) {
 		super(tituloJanela);
+		this.tituloJanela = tituloJanela;
 		this.tituloGrafico = tituloGrafico;
 		this.tituloEixoX = tituloEixoX;
 		this.tituloEixoY = tituloEixoY;
@@ -45,7 +54,7 @@ public class GraficoLinha extends ApplicationFrame {
 		this.dadosY = dadosY;
 		
 		JPanel chartPanel = createDemoPanel();
-		chartPanel.setPreferredSize(new java.awt.Dimension(800, 600));
+		chartPanel.setPreferredSize(new java.awt.Dimension(600, 500));
 		setContentPane(chartPanel);
 	}
 
@@ -57,15 +66,18 @@ public class GraficoLinha extends ApplicationFrame {
 				this.tituloEixoY,                     
 				dataset,              
 				PlotOrientation.VERTICAL,
-				true,                     
-				true,                 
-				true             
+				true,      
+				false,                 
+				false             
 				);
 
 		XYPlot plot = (XYPlot) chart.getPlot();
 		plot.setDomainPannable(true);
 		plot.setRangePannable(true);
 		plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
+		plot.setBackgroundPaint(Color.white);
+		plot.setDomainGridlinePaint(new Color(0x00, 0x00, 0x00));
+		plot.setRangeGridlinePaint(new Color(0x00, 0x00, 0x00));
 
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(){
 
@@ -97,6 +109,20 @@ public class GraficoLinha extends ApplicationFrame {
 		JFreeChart chart = this.createChart(createDataset());
 		ChartPanel panel = new ChartPanel(chart);
 		panel.setMouseWheelEnabled(true);
+		
+		
+		OutputStream arquivo;
+		try {
+			arquivo = new FileOutputStream("c:/users/hugo/desktop/5g2/"+this.tituloJanela+".png");
+			ChartUtilities.writeChartAsPNG(arquivo, chart, 600, 500);
+			arquivo.close();
+		} catch (FileNotFoundException e) {			
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 		return panel;
 	}
 

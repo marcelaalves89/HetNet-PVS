@@ -26,5 +26,5 @@ public class Meter {
 	/**
 	 * Consumo Mínimo Diario por Medidor (KwH)
 	 */
-	public static final double consumoMinimo = 0.2739;
+	public static final double consumoMinimo = 0.27397260;
 }
