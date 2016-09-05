@@ -56,8 +56,8 @@ public class Grafico08 {
 
 		GraficoLinha demo2 = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
-				"User Density (ρ) [Users/km²]", 
-				"CO2 Emission Avoided [kg/user/year]", 
+				"Densidade de Usuários (ρ) [Usuários/km²]", 
+				"Emissões de CO2 evitadas [kg/usuário/ano]", 
 				tco, 
 				Environment.densidadeDeUsuarios);
 		demo2.pack();

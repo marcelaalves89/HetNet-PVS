@@ -56,8 +56,8 @@ public class Grafico07 {
 
 		GraficoLinha demo2 = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
-				"User Density (ρ) [Users/km²]", 
-				"Amount Saved per User per Year [Brazilian Real - BRL]", 
+				"Densidade de Usuários (ρ) [Usuários/km²]", 
+				"Economia por usuário [Reais/usuário/ano]", 
 				tco, 
 				Environment.densidadeDeUsuarios);
 		demo2.pack();

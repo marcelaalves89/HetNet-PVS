@@ -62,8 +62,8 @@ public class Grafico02 {
 
 		GraficoLinha demo = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
-				"Solar Radiation [kWh/m²/day]", 
-				"Cost per User per Year [Brazilian Real - BRL]", 
+				"Irradiação Solar (rs) [kWh/m²/dia]", 
+				"Custo por usuário [Reais/usuário/ano]", 
 				tco, 
 				Panel.radiacao);
 		demo.pack();

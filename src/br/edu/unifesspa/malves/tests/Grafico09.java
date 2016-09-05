@@ -38,7 +38,7 @@ public class Grafico09 {
 		GraficoLinha demo2 = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
 				"Anos", 
-				"Total Power Consumption", 
+				"Consumo Total de Energia", 
 				consumo, 
 				Environment.anos);
 		demo2.pack();

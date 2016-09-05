@@ -38,7 +38,7 @@ public class Grafico04 {
 				this.getClass().getSimpleName(), 
 				"", 
 				"", 
-				"CO2 Emission Avoided [kg/user/year]", 
+				"Emissões de CO2 evitadas [kg/usuário/ano]", 
 				emissao);
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);

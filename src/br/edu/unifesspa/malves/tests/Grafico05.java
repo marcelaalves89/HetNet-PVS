@@ -56,8 +56,8 @@ public class Grafico05 {
 
 		GraficoLinha demo2 = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
-				"User Density (ρ) [Users/km²]", 
-				"TCO - Total Cost of Ownership [Million Brazilian Real - BRL]", 
+				"Densidade de Usuários (ρ) [Usuários/km²]", 
+				"Custo Total de Aquisição (TCO) [Milhões de Reais]", 
 				tco, 
 				Environment.densidadeDeUsuarios);
 		demo2.pack();

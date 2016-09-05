@@ -52,12 +52,12 @@ public class Panel {
 	/**
 	 * 
 	 */
-	public static final double radiacaoPadrao = 6.5;
+	public static final double radiacaoPadrao = 5.9;
 	
 	/**
 	 * 
 	 */
-	public static final double[] radiacao = {3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5};
+	public static final double[] radiacao = {2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5};
 	
 	/**
 	 * 
@@ -72,5 +72,5 @@ public class Panel {
 	/**
 	 * Custo Diario do Aluguel por M2
 	 */
-	public static final double custoAluguelDiario = 1.2476;
+	public static final double custoAluguelDiario = 1.008;
 }
