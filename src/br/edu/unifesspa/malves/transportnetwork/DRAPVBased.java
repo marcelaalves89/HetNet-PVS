@@ -133,16 +133,11 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 	/**
 	 * Calculate TCO
 	 */
-	/**
-	 * Calculate TCO
-	 */
 	public void getTCO(){
 		double[][] matrizCAPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 		double[][] matrizOPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 		double opex = 0;
-		
 		double somaPaineis = 0;
-		
 		
 		for (int i=0; i<this.consumoTotal.length; i++){			
 			double numeroTotalDePaineis = this.numeroInversores[i]*this.numeroPaineisPorInversor;
