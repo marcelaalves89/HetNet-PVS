@@ -45,16 +45,6 @@ public class DRACF extends DRAPVBased{
 	 * Print values for Debug
 	 */
 	public void debug(){
-		System.out.println("Power Consumption of DRA-CF Architecture");
-		Util.imprime(this.consumoTotal);
-		System.out.println();
 
-		System.out.println("Power Generation of DRA-CF Architecture");
-		Util.imprime(this.energiaGerada);
-		System.out.println();
-
-		System.out.println("TCO");
-		Util.imprime(this.tco);
-		System.out.println();
 	}
 }

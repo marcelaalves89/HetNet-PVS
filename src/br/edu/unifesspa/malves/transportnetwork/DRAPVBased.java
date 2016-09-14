@@ -39,9 +39,14 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 	public double[][] potenciaMacroOnly;
 
 	/**
-	 * Total number of Panels
+	 * Total number of String Inverters
 	 */
 	public double[] numeroInversores;
+	
+	/**
+	 * Total number of PV Panels
+	 */
+	public double[] numeroPaineis;
 
 	/**
 	 * Generated power
@@ -51,7 +56,7 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 	/**
 	 * TCO
 	 */
-	public double[] tco;
+	public double tco;
 
 	/**
 	 * 
@@ -84,10 +89,11 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 		this.potenciaMacroOnly = new double [dimensao][dimensao];
 		this.potenciaTotal = new double [dimensao][dimensao];
 		this.numeroInversores = new double[dimensao];
+		this.numeroPaineis = new double[dimensao];
 		this.consumoTotal = new double[dimensao];
 		this.consumoASerGerado = new double[dimensao];
 		this.energiaGerada = new double[dimensao];
-		this.tco = new double[dimensao];
+		this.tco = 0;
 		this.estatisticas = new double[6];
 		this.radiacao = radiacao;
 	}
@@ -113,9 +119,10 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 		double potenciaSaidaInversor = Inverter.eficiencia*this.numeroPaineisPorInversor*geracaoDiariadoPainel;
 	
 		for (int i=0; i<this.energiaGerada.length; i++){
-									
+			
 			this.consumoASerGerado[i] = this.consumoTotal[i] - Util.getSomaPorColuna(matrizDePotencia, i);
 			double numeroDeMedidores = Math.ceil(this.consumoASerGerado[i]/potenciaSaidaInversor);
+			this.numeroPaineis[i] = numeroDeMedidores * this.numeroPaineisPorInversor; 
 			this.matrizConsumoMinimo[i][i] = numeroDeMedidores * Meter.consumoMinimo;
 			
 			this.consumoASerGerado[i] -= Util.getSomaPorColuna(this.matrizConsumoMinimo, i);			
@@ -128,12 +135,19 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 		}
 		this.energiaGerada = Util.getSomaPorColuna(matrizDePotencia);
 		this.estatisticas[4] = Util.getSomaColunasVetor(Util.getSomaPorColuna(this.matrizConsumoMinimo))*365/1000;
+		
+		/*System.out.println("Paineis: "+Util.getSomaColunasVetor(this.numeroPaineis));
+		System.out.println("Inversores: "+Util.getSomaColunasVetor(this.numeroInversores));
+		
+		System.out.println("Paineis");
+		Util.imprime(this.numeroPaineis);*/
+		
 	}
 
 	/**
 	 * Calculate TCO
 	 */
-	public void getTCO(){
+/*	public void getTCO(){
 		double[][] matrizCAPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 		double[][] matrizOPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 		double opex = 0;
@@ -171,6 +185,38 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 		opex += somaPaineis*Panel.area*Panel.custoAluguelDiario*365;
 		this.tco = Util.getSomaPorColuna(matrizCAPEX);
 		this.tco[20] += opex;
+	}*/
+	
+	
+	public void getTCO(){
+		//CAPEX e OPEX
+		double capex = 0;
+		double opex = 0;
+		double[][] matrizOPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
+		for (int i=0; i<this.consumoTotal.length; i++){
+			double temp = Math.pow(CAPEX.taxaDepreciacaoFinanceira, i);
+			if (temp < 0.6)
+				temp = 0.6;
+				
+			capex += this.numeroPaineis[i]*Panel.custoPorPainel*temp;
+			capex += this.numeroPaineis[i]*Panel.custoKitInstalacao*temp;
+			capex += this.numeroInversores[i]*Inverter.custo*temp;
+			
+			matrizOPEX[i][i] = this.numeroPaineis[i]*Panel.custoPorPainel*OPEX.taxaManutencao;
+			Util.getDepreciacao(matrizOPEX, 1);
+			matrizOPEX[i][i] += this.numeroInversores[i]*Meter.custoInstalacao;
+			for (int j=i; j<matrizOPEX[0].length; j++){
+				if (j+Inverter.garantiaInversor < matrizOPEX[0].length)
+					matrizOPEX[i][j+(int)Inverter.garantiaInversor] += this.numeroInversores[i] * Inverter.custo * OPEX.taxaManutencao;
+				if (j+Panel.garantiaKitInstalacao < matrizOPEX[0].length)
+					matrizOPEX[i][j+(int)Panel.garantiaKitInstalacao] += this.numeroPaineis[i] * Panel.custoKitInstalacao * OPEX.taxaManutencao;				
+				matrizOPEX[i][j] += this.numeroInversores[i]*Meter.consumoMinimo*Meter.custoKwhCompra*365;
+				matrizOPEX[i][j] += this.numeroPaineis[i]*Panel.area*OPEX.custoAluguelDiario*365;											
+			}
+			opex = Util.getSomaColunasVetor(Util.getSomaPorColuna(matrizOPEX));			
+		}
+		capex = capex * (1+CAPEX.taxaDeInstalacao);
+		this.tco = capex + opex;
 	}
 
 	/**
@@ -190,9 +236,9 @@ public abstract class DRAPVBased extends DRABasedDeployment2{
 		diferenca = somaGeracao - somaASerGerada;		
 		this.estatisticas[0] = somaConsumo;
 		this.estatisticas[1] = somaGeracao;		
-		this.estatisticas[2] = this.tco[20];	
+		this.estatisticas[2] = this.tco;
 		
-		double temp = ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda))-this.tco[20];		
+		double temp = ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda))-this.tco;		
 		this.estatisticas[3] = (temp/(this.densidadeDeUsuarios*Environment.area))/Environment.anos.length;		
 		this.estatisticas[5] = somaASerGerada;				
 	}

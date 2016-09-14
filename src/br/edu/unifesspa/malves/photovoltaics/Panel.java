@@ -12,12 +12,12 @@ public class Panel {
 	/**
 	 * Rated Power in Watts (W)
 	 */
-	public static final double potenciaNominal = 315;
+	public static final double potenciaNominal = 320;
 	
 	/**
 	 * Panel Area in m²
 	 */
-	public static final double area = 1.918828;
+	public static final double area = 1.99;
 	
 	/**
 	 * 
@@ -32,7 +32,9 @@ public class Panel {
 	/**
 	 * 
 	 */
-	public static final double eficiencia = 0.1642;
+	//public static final double eficiencia = 0.1642;
+	
+	public static final double eficiencia = 0.19;
 	
 	/**
 	 * 
@@ -42,7 +44,7 @@ public class Panel {
 	/**
 	 * 
 	 */
-	public static final double hspPadrao = 6.5;
+	public static final double hspPadrao = 7;
 	
 	/**
 	 * 
@@ -52,7 +54,7 @@ public class Panel {
 	/**
 	 * 
 	 */
-	public static final double radiacaoPadrao = 5.9;
+	public static final double radiacaoPadrao = 7;
 	
 	/**
 	 * 
@@ -68,9 +70,4 @@ public class Panel {
 	 * 
 	 */
 	public static final double garantiaKitInstalacao = 12;
-	
-	/**
-	 * Custo Diario do Aluguel por M2
-	 */
-	public static final double custoAluguelDiario = 1.008;
 }

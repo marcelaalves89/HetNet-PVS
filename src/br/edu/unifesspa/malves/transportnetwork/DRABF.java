@@ -52,7 +52,6 @@ public class DRABF extends DRAPVBased{
 	}
 	
 	public static void main(String[] args) {
-		
-		new DRABF(5.9, 3000);
+		new DRABF(6.5, 3000);
 	}
 }

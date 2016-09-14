@@ -34,9 +34,14 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 	public double[][] potenciaMacroOnly;
 
 	/**
-	 * Total number of Panels
+	 * Total number of String Inverters
 	 */
 	public double[] numeroInversores;
+	
+	/**
+	 * Total number of PV Panels
+	 */
+	public double[] numeroPaineis;
 
 	/**
 	 * Generated power
@@ -46,7 +51,7 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 	/**
 	 * TCO
 	 */
-	public double[] tco;
+	public double tco;
 	
 	/**
 	 * 
@@ -78,10 +83,11 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 		this.potenciaMacroOnly = new double [dimensao][dimensao];
 		this.potenciaTotal = new double [dimensao][dimensao];
 		this.numeroInversores = new double[dimensao];
+		this.numeroPaineis = new double[dimensao];
 		this.consumoTotal = new double[dimensao];
 		this.consumoASerGerado = new double[dimensao];
 		this.energiaGerada = new double[dimensao];
-		this.tco = new double[dimensao];
+		this.tco = 0;
 		this.estatisticas = new double[6];
 		this.radiacao = radiacao;
 	}
@@ -110,6 +116,7 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 									
 			this.consumoASerGerado[i] = this.consumoTotal[i] - Util.getSomaPorColuna(matrizDePotencia, i);
 			double numeroDeMedidores = Math.ceil(this.consumoASerGerado[i]/potenciaSaidaInversor);
+			this.numeroPaineis[i] = numeroDeMedidores * this.numeroPaineisPorInversor;
 			this.matrizConsumoMinimo[i][i] = numeroDeMedidores * Meter.consumoMinimo;
 			
 			this.consumoASerGerado[i] -= Util.getSomaPorColuna(this.matrizConsumoMinimo, i);			
@@ -128,45 +135,34 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 	 * Calculate TCO
 	 */
 	public void getTCO(){
-		double[][] matrizCAPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
-		double[][] matrizOPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
+		//CAPEX e OPEX
+		double capex = 0;
 		double opex = 0;
-		
-		double somaPaineis = 0;
-		
-		
-		for (int i=0; i<this.consumoTotal.length; i++){			
-			double numeroTotalDePaineis = this.numeroInversores[i]*this.numeroPaineisPorInversor;
+		double[][] matrizOPEX = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
+		for (int i=0; i<this.consumoTotal.length; i++){
+			double temp = Math.pow(CAPEX.taxaDepreciacaoFinanceira, i);
+			if (temp < 0.6)
+				temp = 0.6;
+				
+			capex += this.numeroPaineis[i]*Panel.custoPorPainel*temp;
+			capex += this.numeroPaineis[i]*Panel.custoKitInstalacao*temp;
+			capex += this.numeroInversores[i]*Inverter.custo*temp;
 			
-			somaPaineis += numeroTotalDePaineis; 
-			
-			double custoPaineis = numeroTotalDePaineis*Panel.custoPorPainel;
-			double custoInversores = numeroInversores[i]*Inverter.custo;
-			double custoKitDeInstalacao = numeroTotalDePaineis * Panel.custoKitInstalacao;
-			
-			//CAPEX
-			matrizCAPEX[i][i] = (custoPaineis + custoInversores + custoKitDeInstalacao);
-			Util.getDepreciacao(matrizCAPEX, CAPEX.taxaDepreciacaoFinanceira);
-			matrizCAPEX[i][i] += CAPEX.taxaDeInstalacao*(custoPaineis + custoInversores + custoKitDeInstalacao);
-
-			//OPEX
-			matrizOPEX[i][i] = custoPaineis*OPEX.taxaManutencao;
+			matrizOPEX[i][i] = this.numeroPaineis[i]*Panel.custoPorPainel*OPEX.taxaManutencao;
 			Util.getDepreciacao(matrizOPEX, 1);
-			
 			matrizOPEX[i][i] += this.numeroInversores[i]*Meter.custoInstalacao;
-			
 			for (int j=i; j<matrizOPEX[0].length; j++){
 				if (j+Inverter.garantiaInversor < matrizOPEX[0].length)
-					matrizOPEX[i][j+(int)Inverter.garantiaInversor] += custoInversores * OPEX.taxaManutencao;
+					matrizOPEX[i][j+(int)Inverter.garantiaInversor] += this.numeroInversores[i] * Inverter.custo * OPEX.taxaManutencao;
 				if (j+Panel.garantiaKitInstalacao < matrizOPEX[0].length)
-					matrizOPEX[i][j+(int)Panel.garantiaKitInstalacao] += custoKitDeInstalacao * OPEX.taxaManutencao;				
+					matrizOPEX[i][j+(int)Panel.garantiaKitInstalacao] += this.numeroPaineis[i] * Panel.custoKitInstalacao * OPEX.taxaManutencao;				
 				matrizOPEX[i][j] += this.numeroInversores[i]*Meter.consumoMinimo*Meter.custoKwhCompra*365;
-			}							
-			opex = Util.getSomaColunasVetor(Util.getSomaPorColuna(matrizOPEX));
+				matrizOPEX[i][j] += this.numeroPaineis[i]*Panel.area*OPEX.custoAluguelDiario*365;											
+			}
+			opex = Util.getSomaColunasVetor(Util.getSomaPorColuna(matrizOPEX));			
 		}
-		opex += somaPaineis*Panel.area*Panel.custoAluguelDiario*365;
-		this.tco = Util.getSomaPorColuna(matrizCAPEX);
-		this.tco[20] += opex;
+		capex = capex * (1+CAPEX.taxaDeInstalacao);
+		this.tco = capex + opex;
 	}
 
 	/**
@@ -187,9 +183,9 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 		diferenca = somaGeracao - somaASerGerada;		
 		this.estatisticas[0] = somaConsumo;
 		this.estatisticas[1] = somaGeracao;		
-		this.estatisticas[2] = this.tco[20];	
+		this.estatisticas[2] = this.tco;	
 		
-		double temp = ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda))-this.tco[20];		
+		double temp = ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda))-this.tco;		
 		this.estatisticas[3] = (temp/(this.densidadeDeUsuarios*Environment.area))/Environment.anos.length;		
 		this.estatisticas[5] = somaASerGerada;				
 	}
