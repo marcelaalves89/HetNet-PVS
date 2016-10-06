@@ -60,13 +60,18 @@ public class Grafico01 {
 		tco.put("DRA-BF", tcoDRABF);
 		tco.put("Femto-CB", tcoFemtoCB);
 		tco.put("Femto-BB", tcoFemtoBB);
+		
+		double[] escalaX = {1.725, 7.775};
+		double[] escalaY = {299.4820160019233, 1538.5888572098809};
 
 		GraficoLinha demo = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
 				"Irradiação Solar (rs) [kWh/m²/dia]", 
 				"Custo Total de Aquisição (TCO) [Milhões de Reais]", 
 				tco, 
-				Panel.radiacao);
+				Panel.radiacao,
+				escalaX,
+				escalaY);
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);		

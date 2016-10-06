@@ -31,9 +31,7 @@ public class Panel {
 	
 	/**
 	 * 
-	 */
-	//public static final double eficiencia = 0.1642;
-	
+	 */	
 	public static final double eficiencia = 0.19;
 	
 	/**

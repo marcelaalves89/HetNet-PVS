@@ -53,13 +53,18 @@ public class Grafico06 {
 		tco.put("DRA-BF", tcoDRABF);
 		tco.put("Femto-CB", tcoFemtoCB);
 		tco.put("Femto-BB", tcoFemtoBB);
+		
+		double[] escalaX = {816.890595009597, 5200.0};
+		double[] escalaY = {47.262246841174104, 125.9310190026123};
 
 		GraficoLinha demo2 = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
 				"Densidade de Usuário (ρ) [Usuários/km²]", 
 				"Custo por usuário [Reais/usuário/ano]", 
 				tco, 
-				Environment.densidadeDeUsuarios);
+				Environment.densidadeDeUsuarios,
+				escalaX,
+				escalaY);
 		demo2.pack();
 		RefineryUtilities.centerFrameOnScreen(demo2);
 		demo2.setVisible(true);

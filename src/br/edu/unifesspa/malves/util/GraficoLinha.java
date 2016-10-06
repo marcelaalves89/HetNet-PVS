@@ -2,6 +2,7 @@ package br.edu.unifesspa.malves.util;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Stroke;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
@@ -43,8 +45,12 @@ public class GraficoLinha extends ApplicationFrame {
 	private HashMap<String, double[]> dadosX;
 	
 	private double[] dadosY;
+	
+	private double escalaX[];
+	
+	private double escalaY[];
 
-	public GraficoLinha(String tituloJanela, String tituloGrafico, String tituloEixoX, String tituloEixoY, HashMap<String, double[]> dadosX, double[] dadosY) {
+	public GraficoLinha(String tituloJanela, String tituloGrafico, String tituloEixoX, String tituloEixoY, HashMap<String, double[]> dadosX, double[] dadosY, double[] escalaX, double[] escalaY) {
 		super(tituloJanela);
 		this.tituloJanela = tituloJanela;
 		this.tituloGrafico = tituloGrafico;
@@ -52,6 +58,8 @@ public class GraficoLinha extends ApplicationFrame {
 		this.tituloEixoY = tituloEixoY;
 		this.dadosX = dadosX;
 		this.dadosY = dadosY;
+		this.escalaX = escalaX;
+		this.escalaY = escalaY;
 		
 		JPanel chartPanel = createDemoPanel();
 		chartPanel.setPreferredSize(new java.awt.Dimension(600, 500));
@@ -72,12 +80,24 @@ public class GraficoLinha extends ApplicationFrame {
 				);
 
 		XYPlot plot = (XYPlot) chart.getPlot();
+		Font font = new Font("Tahoma", Font.BOLD, 16); 
+		plot.getDomainAxis().setLabelFont(font);
+		plot.getRangeAxis().setLabelFont(font);
 		plot.setDomainPannable(true);
 		plot.setRangePannable(true);
 		plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
 		plot.setBackgroundPaint(Color.white);
 		plot.setDomainGridlinePaint(new Color(0x00, 0x00, 0x00));
 		plot.setRangeGridlinePaint(new Color(0x00, 0x00, 0x00));
+		
+		if (this.escalaX != null && this.escalaY != null){
+	        NumberAxis domain = (NumberAxis) plot.getDomainAxis();
+	        domain.setRange(this.escalaX[0], this.escalaX[1]);
+	        //domain.setTickUnit(new NumberTickUnit(0.1));
+	        NumberAxis range = (NumberAxis) plot.getRangeAxis();
+	        range.setRange(this.escalaY[0], this.escalaY[1]);
+	        //range.setTickUnit(new NumberTickUnit(0.1));
+		}
 
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(){
 			

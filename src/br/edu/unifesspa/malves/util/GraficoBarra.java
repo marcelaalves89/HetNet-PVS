@@ -1,6 +1,7 @@
 package br.edu.unifesspa.malves.util;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -37,14 +39,17 @@ public class GraficoBarra extends ApplicationFrame {
 	private String tituloEixoY;
 
 	private HashMap<String, Double> dados;
+	
+	private double[] escalaY;
 
-	public GraficoBarra(String tituloJanela, String tituloGrafico, String tituloEixoX, String tituloEixoY, HashMap<String, Double> dados) {
+	public GraficoBarra(String tituloJanela, String tituloGrafico, String tituloEixoX, String tituloEixoY, HashMap<String, Double> dados, double[] escalaY) {
 		super(tituloJanela);
 		this.tituloJanela = tituloJanela;
 		this.tituloGrafico = tituloGrafico;
 		this.tituloEixoX = tituloEixoX;
 		this.tituloEixoY = tituloEixoY;
 		this.dados = dados;
+		this.escalaY = escalaY;
 
 		JPanel chartPanel = createDemoPanel();
 		chartPanel.setPreferredSize(new java.awt.Dimension(600, 500));
@@ -63,11 +68,18 @@ public class GraficoBarra extends ApplicationFrame {
 				true);
 		
 		CategoryPlot plot = chart.getCategoryPlot();
+		Font font = new Font("Tahoma", Font.BOLD, 16); 
+		plot.getDomainAxis().setLabelFont(font);
+		plot.getRangeAxis().setLabelFont(font);
 		BarRenderer br = (BarRenderer) plot.getRenderer();
 		br.setMaximumBarWidth(.1);
 		plot.setBackgroundPaint(Color.white);
 		plot.setDomainGridlinePaint(new Color(0x00, 0x00, 0x00));
 		plot.setRangeGridlinePaint(new Color(0x00, 0x00, 0x00));
+		
+		if (this.escalaY != null){
+	        NumberAxis range = (NumberAxis) plot.getRangeAxis();
+	        range.setRange(this.escalaY[0], this.escalaY[1]);		}
 		
 		return chart;
 	}

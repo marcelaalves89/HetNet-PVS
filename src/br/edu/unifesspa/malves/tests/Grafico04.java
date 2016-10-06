@@ -33,13 +33,16 @@ public class Grafico04 {
 		emissao.put("DRA-BF", emissaoDRABF);
 		emissao.put("Femto-CB", emissaoFemtoCB);
 		emissao.put("Femto-BB", emissaoFemtoBB);
+		
+		double[] escalaY = {47, 70};
 
 		GraficoBarra demo = new GraficoBarra(
 				this.getClass().getSimpleName(), 
 				"", 
 				"", 
 				"Emissões de CO2 evitadas [kg/usuário/ano]", 
-				emissao);
+				emissao,
+				escalaY);
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);		

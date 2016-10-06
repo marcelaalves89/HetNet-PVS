@@ -40,7 +40,9 @@ public class Grafico09 {
 				"Anos", 
 				"Consumo Total de Energia", 
 				consumo, 
-				Environment.anos);
+				Environment.anos,
+				null,
+				null);
 		demo2.pack();
 		RefineryUtilities.centerFrameOnScreen(demo2);
 		demo2.setVisible(true);

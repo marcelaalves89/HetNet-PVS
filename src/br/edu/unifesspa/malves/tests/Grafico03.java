@@ -53,10 +53,12 @@ public class Grafico03 {
 
 		GraficoLinha demo = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
-				"Irradiação Solar [kWh/m²/dia]", 
+				"Irradiação Solar (rs) [kWh/m²/dia]", 
 				"Economia por usuário [Reais/usuário/ano]", 
 				tco, 
-				Panel.radiacao);
+				Panel.radiacao,
+				null,
+				null);
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);		

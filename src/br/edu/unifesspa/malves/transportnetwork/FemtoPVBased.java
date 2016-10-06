@@ -149,8 +149,9 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 			capex += this.numeroInversores[i]*Inverter.custo*temp;
 			
 			matrizOPEX[i][i] = this.numeroPaineis[i]*Panel.custoPorPainel*OPEX.taxaManutencao;
-			Util.getDepreciacao(matrizOPEX, 1);
+			Util.getDepreciacao(matrizOPEX, 1);			
 			matrizOPEX[i][i] += this.numeroInversores[i]*Meter.custoInstalacao;
+			
 			for (int j=i; j<matrizOPEX[0].length; j++){
 				if (j+Inverter.garantiaInversor < matrizOPEX[0].length)
 					matrizOPEX[i][j+(int)Inverter.garantiaInversor] += this.numeroInversores[i] * Inverter.custo * OPEX.taxaManutencao;
@@ -163,6 +164,7 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 		}
 		capex = capex * (1+CAPEX.taxaDeInstalacao);
 		this.tco = capex + opex;
+
 	}
 
 	/**
@@ -185,7 +187,8 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment2{
 		this.estatisticas[1] = somaGeracao;		
 		this.estatisticas[2] = this.tco;	
 		
-		double temp = ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda))-this.tco;		
+		double temp = ((somaConsumo*Meter.custoKwhCompra))-this.tco;
+		//double temp = ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda))-this.tco;
 		this.estatisticas[3] = (temp/(this.densidadeDeUsuarios*Environment.area))/Environment.anos.length;		
 		this.estatisticas[5] = somaASerGerada;				
 	}

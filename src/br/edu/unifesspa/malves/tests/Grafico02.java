@@ -53,6 +53,9 @@ public class Grafico02 {
 		tco.put("Femto-CB", tcoFemtoCB);
 		tco.put("Femto-BB", tcoFemtoBB);
 		
+		double[] escalaX = {1.725, 7.775};
+		double[] escalaY = {44.5657761907624, 244.81466387458812};
+		
 		System.out.println(this.getClass().getSimpleName()+": Custo da Energia Por Usuário, Por Ano (em Reais) junto à Concessionária: ");
 		System.out.println("DRA-BF: "+ Util.formataValorEmReais(((drabf.estatisticas[0]*Meter.custoKwhCompra)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length) );
 		System.out.println("DRA-CF: "+ Util.formataValorEmReais(((dracf.estatisticas[0]*Meter.custoKwhCompra)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length ));		
@@ -65,7 +68,9 @@ public class Grafico02 {
 				"Irradiação Solar (rs) [kWh/m²/dia]", 
 				"Custo por usuário [Reais/usuário/ano]", 
 				tco, 
-				Panel.radiacao);
+				Panel.radiacao,
+				escalaX,
+				escalaY);
 		demo.pack();
 		RefineryUtilities.centerFrameOnScreen(demo);
 		demo.setVisible(true);		
