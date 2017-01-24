@@ -11,20 +11,20 @@ public class Meter {
 	/**
 	 * Meter Installation Cost (Brazilian Real - BRL)
 	 */
-	public static final double custoInstalacao = 300;
+	public static final double meterInstallationCost = 300;
 	
 	/**
 	 * Purchase cost of kWh (Brazilian Real - BRL)
 	 */
-	public static final double custoKwhCompra = 0.8487748148;
+	public static final double purchaseCostOfKWH = 0.8487748148;
 	
 	/**
 	 * Sales cost of kWh (Brazilian Real - BRL)
 	 */
-	public static final double custoKwhVenda = 0.6770348148;
+	public static final double salesCostOfKWH = 0.6770348148;
 	
 	/**
-	 * Consumo Mínimo Diario por Medidor (KwH)
+	 * Daily minimum consumption per meter (KwH)
 	 */
-	public static final double consumoMinimo = 0.27397260;
+	public static final double dailyMinimumConsumptionPerMeter = 0.27397260;
 }

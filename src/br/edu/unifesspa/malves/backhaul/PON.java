@@ -8,13 +8,28 @@ package br.edu.unifesspa.malves.backhaul;
  */
 public class PON {
 
-	public static final double numeroDeWaveLenghtsDWDM = 380;
+	/**
+	 * Number of Wavelengths per DWDW
+	 */
+	public static final double numOfWaveLenghtsPerDWDM = 380;
 	
-	public static final double numeroDeWaveLenghtsTWDM = 4;
+	/**
+	 * Number of Wavelengths per TWDW
+	 */
+	public static final double numOfWaveLenghtsPerTWDM = 4;
 	
-	public static final double numeroDeONUsPorPredio = 1;
+	/**
+	 * Number of ONUS's per building
+	 */
+	public static final double numOfONUPerBuilding = 1;
 	
-	public static final double potenciaONU = 5;
+	/**
+	 * ONU Power (W)
+	 */
+	public static final double onuPower = 5;
 	
-	public static final double potenciaOLT = 1197;
+	/**
+	 * OLT Power (W)
+	 */
+	public static final double oltPower = 1197;
 }

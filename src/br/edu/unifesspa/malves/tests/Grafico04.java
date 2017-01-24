@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import org.jfree.ui.RefineryUtilities;
 
-import br.edu.unifesspa.malves.photovoltaics.Panel;
 import br.edu.unifesspa.malves.trafficforecast.Environment;
 import br.edu.unifesspa.malves.transportnetwork.DRABF;
 import br.edu.unifesspa.malves.transportnetwork.DRACF;
@@ -17,16 +16,16 @@ public class Grafico04 {
 	public Grafico04(){
 		HashMap<String, Double> emissao = new HashMap<String, Double>();
 
-		DRACF dracf = new DRACF(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
+		DRACF dracf = new DRACF(Environment.defaultSolarIrradiance, Environment.densidadeDeUsuariosPadrao);
 		double emissaoDRACF = ((dracf.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
-		DRABF drabf = new DRABF(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
+		DRABF drabf = new DRABF(Environment.defaultSolarIrradiance, Environment.densidadeDeUsuariosPadrao);
 		double emissaoDRABF = ((drabf.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
-		FemtoCB femtocb = new FemtoCB(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
+		FemtoCB femtocb = new FemtoCB(Environment.defaultSolarIrradiance, Environment.densidadeDeUsuariosPadrao);
 		double emissaoFemtoCB = ((femtocb.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
-		FemtoBB femtobb = new FemtoBB(Panel.radiacaoPadrao, Environment.densidadeDeUsuariosPadrao);
+		FemtoBB femtobb = new FemtoBB(Environment.defaultSolarIrradiance, Environment.densidadeDeUsuariosPadrao);
 		double emissaoFemtoBB = ((femtobb.estatisticas[1]*Environment.fatorCO2Padrao)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
 		emissao.put("DRA-CF", emissaoDRACF);

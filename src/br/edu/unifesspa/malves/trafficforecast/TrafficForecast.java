@@ -2,7 +2,7 @@ package br.edu.unifesspa.malves.trafficforecast;
 
 import br.edu.unifesspa.malves.util.Util;
 
-public class PrevisaoDeTrafego {	
+public class TrafficForecast {	
 	
 	public double[] taxaMediaPorUsuario;
 	
@@ -26,7 +26,7 @@ public class PrevisaoDeTrafego {
 	 */
 	public final double[][] fracaoDeUsuarios = {{0.1, 0.2, 0.3},{0.9, 0.8, 0.7}};
 	
-	public PrevisaoDeTrafego(double densidadeDeUsuarios){
+	public TrafficForecast(double densidadeDeUsuarios){
 		this.densidadeDeUsuarios = densidadeDeUsuarios;
 				
 		//Average traffic demand per terminal during busy hour (MB/hour)
@@ -58,7 +58,7 @@ public class PrevisaoDeTrafego {
 		this.picoDaDemandaDeTrafegoNaArea = Util.getProdutoPorEscalar(this.taxaMediaPorUsuario, (this.densidadeDeUsuarios*Environment.alphaMaximo));
 		
 		/*
-		 * Teste: Valores Extraídos do Código Matlab (Arredondados até a quarta casa decimal)
+		 * Teste: Valores Extraidos do Codigo Matlab (Arredondados ate a quarta casa decimal)
 		 * Peak Area Traffic Demand
 		*/ 
 		this.picoDaDemandaDeTrafegoNaArea[0] = 2.6083;

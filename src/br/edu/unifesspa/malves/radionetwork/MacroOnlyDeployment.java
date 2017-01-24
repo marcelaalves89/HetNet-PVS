@@ -1,7 +1,7 @@
 package br.edu.unifesspa.malves.radionetwork;
 
 import br.edu.unifesspa.malves.trafficforecast.Environment;
-import br.edu.unifesspa.malves.trafficforecast.PrevisaoDeTrafego;
+import br.edu.unifesspa.malves.trafficforecast.TrafficForecast;
 import br.edu.unifesspa.malves.util.Util;
 import br.edu.unifesspa.malves.wireless.Macro;
 
@@ -16,50 +16,50 @@ public class MacroOnlyDeployment {
 	/**
 	 * Traffic forecast calculated previously
 	 */
-	public PrevisaoDeTrafego previsao;
+	public TrafficForecast prevision;
 	
 	/**
 	 * Macro Density
 	 */
-	public double[] densidadeDeMacros;
+	public double[] macroDensity;
 	
 	/**
-	 * Macro cell range
+	 * Macrocell Range
 	 */
 	public double[] alcanceCelulaMacro;
 		
 	/**
-	 * Number of Macros
+	 * Number of Macros Array
 	 */
-	public double[] numeroDeMacros;
+	public double[] numOfMacros;
 	
 	/**
 	 * Number of active users per MacroBS
 	 */
-	public double[] numeroDeUsuarioAtivosPorMacro;
+	public double[] numOfActiveUsersPerMacro;
 	
 	/**
 	 * Power consumption of Macro Only Architecture
 	 */
-	public double[] potencia;
+	public double[] power;
 	
 	/**
 	 * User Density
 	 */
-	public double densidadeDeUsuarios;
+	public double userDensity;
 	
 	/**
 	 * Architecture's Name
 	 */
-	public String nome;
+	public String name;
 	
 	/**
 	 * 	Super constructor call and initializing values
 	 */
-	public MacroOnlyDeployment(double densidadeDeUsuarios){
-		this.previsao = new PrevisaoDeTrafego(densidadeDeUsuarios);
-		this.nome = "Macro Only Deployment";
-		this.densidadeDeUsuarios = densidadeDeUsuarios;
+	public MacroOnlyDeployment(double userDensity){
+		this.prevision = new TrafficForecast(userDensity);
+		this.name = "Macro Only Deployment";
+		this.userDensity = userDensity;
 		this.run();
 	}
 	
@@ -67,16 +67,16 @@ public class MacroOnlyDeployment {
 	 * Performs the calculation of Macro Density, Macro Cell Range, Number of Macros, Number of Active Users Per Macro and Power consumption of Macro Only Architecture 
 	 */
 	public void run(){
-		this.densidadeDeMacros = Util.getProdutoPorEscalar(previsao.getPrevisaoDeTrafego(), (1.0/Macro.capacidadeDaCelula));
+		this.macroDensity = Util.getProdutoPorEscalar(prevision.getPrevisaoDeTrafego(), (1.0/Macro.cellCapacity));
 		
 		//Macro cell range
-		double[] temp = Util.getProdutoPorEscalar(this.densidadeDeMacros, (1.5*Math.sqrt(3)));
+		double[] temp = Util.getProdutoPorEscalar(this.macroDensity, (1.5*Math.sqrt(3)));
 		this.alcanceCelulaMacro = Util.getPotencia((Util.getPotencia(temp, -1.0)),1.0/2.0);
 		
 		//Number of Macros
-		this.numeroDeMacros = Util.getProdutoPorEscalar(this.densidadeDeMacros, Environment.area);
+		this.numOfMacros = Util.getProdutoPorEscalar(this.macroDensity, Environment.area);
 		
 		//Number of Active users per Macro
-		this.numeroDeUsuarioAtivosPorMacro = Util.getProdutoPorEscalar(Util.getPotencia(this.previsao.getTaxaMediaPorUsuarioExtendida(), -1.0), Macro.capacidadeDaCelula);
+		this.numOfActiveUsersPerMacro = Util.getProdutoPorEscalar(Util.getPotencia(this.prevision.getTaxaMediaPorUsuarioExtendida(), -1.0), Macro.cellCapacity);
 	}
 }

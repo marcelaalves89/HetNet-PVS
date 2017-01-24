@@ -259,7 +259,7 @@ public class Util {
 
 	/**
 	 * 
-	 * @param vetor
+	 * @param vetorColuna
 	 * @param dividendo
 	 * @return
 	 */

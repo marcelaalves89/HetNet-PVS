@@ -19,13 +19,13 @@ import br.edu.unifesspa.malves.tests.Grafico09;
 public class Main {
 
 	public static void main(String[] args) {
-		//Variando a Radiação
+		//Variando a Radiacao
 		new Grafico01();		
 		new Grafico02();
 		new Grafico03();				
 		new Grafico04();
 				
-		//Variando a Densidade de Usuários
+		//Variando a Densidade de Usuarios
 		new Grafico05();
 		new Grafico06();
 		new Grafico07();

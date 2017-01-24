@@ -5,7 +5,6 @@ import java.util.HashMap;
 import org.jfree.ui.RefineryUtilities;
 
 import br.edu.unifesspa.malves.photovoltaics.Meter;
-import br.edu.unifesspa.malves.photovoltaics.Panel;
 import br.edu.unifesspa.malves.trafficforecast.Environment;
 import br.edu.unifesspa.malves.transportnetwork.DRABF;
 import br.edu.unifesspa.malves.transportnetwork.DRACF;
@@ -21,31 +20,31 @@ public class Grafico02 {
 
 		//DRA-CF
 		DRACF dracf = null;
-		double[] tcoDRACF = new double[Panel.radiacao.length];
+		double[] tcoDRACF = new double[Environment.radiacao.length];
 
 		//DRA-BF
 		DRABF drabf = null;
-		double[] tcoDRABF = new double[Panel.radiacao.length];
+		double[] tcoDRABF = new double[Environment.radiacao.length];
 
 		//Femto-CB
 		FemtoCB femtocb = null;
-		double[] tcoFemtoCB = new double[Panel.radiacao.length];
+		double[] tcoFemtoCB = new double[Environment.radiacao.length];
 
 		//Femto-BB
 		FemtoBB femtobb = null;
-		double[] tcoFemtoBB = new double[Panel.radiacao.length];
+		double[] tcoFemtoBB = new double[Environment.radiacao.length];
 
-		for (int i=0; i<Panel.radiacao.length; i++){		
-			dracf = new DRACF(Panel.radiacao[i], Environment.densidadeDeUsuariosPadrao);
+		for (int i=0; i<Environment.radiacao.length; i++){		
+			dracf = new DRACF(Environment.radiacao[i], Environment.densidadeDeUsuariosPadrao);
 			tcoDRACF[i] = (dracf.estatisticas[2]/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
-			drabf = new DRABF(Panel.radiacao[i], Environment.densidadeDeUsuariosPadrao);
+			drabf = new DRABF(Environment.radiacao[i], Environment.densidadeDeUsuariosPadrao);
 			tcoDRABF[i] = (drabf.estatisticas[2]/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
-			femtocb = new FemtoCB(Panel.radiacao[i], Environment.densidadeDeUsuariosPadrao);
+			femtocb = new FemtoCB(Environment.radiacao[i], Environment.densidadeDeUsuariosPadrao);
 			tcoFemtoCB[i] = (femtocb.estatisticas[2]/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 
-			femtobb = new FemtoBB(Panel.radiacao[i], Environment.densidadeDeUsuariosPadrao);
+			femtobb = new FemtoBB(Environment.radiacao[i], Environment.densidadeDeUsuariosPadrao);
 			tcoFemtoBB[i] = (femtobb.estatisticas[2]/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length;
 		}
 		tco.put("DRA-CF", tcoDRACF);
@@ -56,19 +55,19 @@ public class Grafico02 {
 		double[] escalaX = {1.725, 7.775};
 		double[] escalaY = {44.5657761907624, 244.81466387458812};
 		
-		System.out.println(this.getClass().getSimpleName()+": Custo da Energia Por Usuário, Por Ano (em Reais) junto à Concessionária: ");
-		System.out.println("DRA-BF: "+ Util.formataValorEmReais(((drabf.estatisticas[0]*Meter.custoKwhCompra)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length) );
-		System.out.println("DRA-CF: "+ Util.formataValorEmReais(((dracf.estatisticas[0]*Meter.custoKwhCompra)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length ));		
-		System.out.println("Femto-CB: "+ Util.formataValorEmReais(((femtocb.estatisticas[0]*Meter.custoKwhCompra)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length ));
-		System.out.println("Femto-BB: "+ Util.formataValorEmReais(((femtobb.estatisticas[0]*Meter.custoKwhCompra)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length ));
+		System.out.println(this.getClass().getSimpleName()+": Custo da Energia Por Usuario, Por Ano (em Reais) junto a Concessionaria: ");
+		System.out.println("DRA-BF: "+ Util.formataValorEmReais(((drabf.estatisticas[0]*Meter.purchaseCostOfKWH)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length) );
+		System.out.println("DRA-CF: "+ Util.formataValorEmReais(((dracf.estatisticas[0]*Meter.purchaseCostOfKWH)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length ));		
+		System.out.println("Femto-CB: "+ Util.formataValorEmReais(((femtocb.estatisticas[0]*Meter.purchaseCostOfKWH)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length ));
+		System.out.println("Femto-BB: "+ Util.formataValorEmReais(((femtobb.estatisticas[0]*Meter.purchaseCostOfKWH)/(Environment.densidadeDeUsuariosPadrao*Environment.area))/Environment.anos.length ));
 		System.out.println();
 
 		GraficoLinha demo = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 
-				"Irradiação Solar (rs) [kWh/m²/dia]", 
-				"Custo por usuário [Reais/usuário/ano]", 
+				"Irradiacao Solar (rs) [kWh/m2/dia]", 
+				"Custo por usuario [Reais/usuario/ano]", 
 				tco, 
-				Panel.radiacao,
+				Environment.radiacao,
 				escalaX,
 				escalaY);
 		demo.pack();

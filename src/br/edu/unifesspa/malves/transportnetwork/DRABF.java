@@ -17,7 +17,7 @@ public class DRABF extends DRAPVBased{
 	 */
 	public DRABF(double radiacao, double densidadeDeUsuarios){
 		super(radiacao, densidadeDeUsuarios);
-		this.nome = "Macro+DRA-BF Architecture";
+		this.name = "Macro+DRA-BF Architecture";
 		this.getConsumoMacro();
 		this.getConsumoDRA();		
 		this.getPotenciaDeGeracao();
@@ -31,12 +31,12 @@ public class DRABF extends DRAPVBased{
 	 */
 	public void getConsumoDRA(){				
 		
-		double temp = DRA.numeroDeRRUSporPredio*(DRA.potenciaRRU + DRA.potenciaPorPortaDU 
-												 + (DRA.potenciaPorRackDU/DRA.numeroDePortasDUporRackDU))
-		+ PON.numeroDeONUsPorPredio*(PON.potenciaONU+(PON.potenciaOLT/PON.numeroDeWaveLenghtsDWDM));
+		double temp = DRA.numOfRRUperBuilding*(DRA.RRUPower + DRA.DUPortPower 
+												 + (DRA.rackDUPower/DRA.numberOfDUPortsPerRack))
+		+ PON.numOfONUPerBuilding*(PON.onuPower+(PON.oltPower/PON.numOfWaveLenghtsPerDWDM));
 		
 		this.potenciaDRAOnly = Util.getSoma(
-				Util.getProdutoPorEscalar(super.numeroDeAntenasDRA, DRA.potenciaAntenaAmplificadora),
+				Util.getProdutoPorEscalar(super.numeroDeAntenasDRA, DRA.powerAmplifierAntenna),
 				Util.getProdutoPorEscalar(super.numeroMaximoDePrediosComDRA, temp)
 				);
 		

@@ -11,21 +11,20 @@ public class Inverter {
 	/**
 	 * Inverter Acquisition Cost (in Brazilian Real R$)
 	 */
-	public static final double custo = 18000.00;
-	//public static final double custo = 22866.32;
+	public static final double price = 18000.00;
 	
 	/**
-	 * 
+	 * Inverter's Efficiency (%)
 	 */
-	public static final double eficiencia = 0.985;
+	public static final double efficiecy = 0.985;
 	
 	/**
-	 * kW
+	 * Rated DC Input (kW)
 	 */
-	public static final double potenciaNominalEntrada = 60.0;
+	public static final double ratedDCInput = 60.0;
 	
 	/**
-	 * 
+	 * Warranty Time (Years)
 	 */
-	public static final double garantiaInversor = 10;
+	public static final double warrantyTime = 10;
 }

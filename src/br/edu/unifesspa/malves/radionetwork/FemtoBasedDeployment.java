@@ -2,8 +2,15 @@ package br.edu.unifesspa.malves.radionetwork;
 
 import br.edu.unifesspa.malves.trafficforecast.Environment;
 import br.edu.unifesspa.malves.util.Util;
+import br.edu.unifesspa.malves.wireless.DRA;
 import br.edu.unifesspa.malves.wireless.Femto;
 
+/**
+ * 
+ * @author	Marcela Alves
+ * @since	2016-06-18
+ *
+ */
 public class FemtoBasedDeployment extends MacroOnlyDeployment {
 
 	/**
@@ -36,9 +43,9 @@ public class FemtoBasedDeployment extends MacroOnlyDeployment {
 	 */
 	public FemtoBasedDeployment(double densidadeDeUsuarios){
 		super(densidadeDeUsuarios);
-		this.nome = "Femto-Based Deployment";
-		int x = Femto.taxaDePenetracao.length, y=this.previsao.getPrevisaoDeTrafego().length;
-
+		this.name = "Femto-Based Deployment";
+		int x = Femto.penetrationRate.length, y=this.prevision.getPrevisaoDeTrafego().length;
+		DRA
 		this.numeroDeMacros = new double[x][y];
 		this.numeroDeFemtos = new double[x][1];
 		this.numeroMaximoDePrediosComFemto = new double[x];
@@ -46,17 +53,15 @@ public class FemtoBasedDeployment extends MacroOnlyDeployment {
 		
 		this.getNumeroDeMacros();
 		this.getNumeroFemtos();
-		//this.debug();
 	}
 	
 	/**
 	 * Performs the calculation of Total Number of MacroBS's
 	 */
 	public void getNumeroDeMacros() {		
-		double temp = this.densidadeDeUsuarios*Environment.area*Environment.alphaMaximo;
-		for (int i=0; i<Femto.taxaDePenetracao.length; i++){
-			temp *= (1-Femto.taxaDePenetracao[i]);
-			this.numeroDeMacros[i] = Util.getDivisao(this.numeroDeUsuarioAtivosPorMacro, temp); 
+		for (int i=0; i<DRA.penetrationRate.length; i++){
+			double temp = this.userDensity*Environment.area*Environment.alphaMaximo* (1-Femto.penetrationRate[i]);
+			this.numeroDeMacros[i] = Util.getDivisao(this.numOfActiveUsersPerMacro, temp); 
 		}
 	}
 
@@ -64,29 +69,14 @@ public class FemtoBasedDeployment extends MacroOnlyDeployment {
 	 * Performs the calculation of Total Number of FemtoBS's
 	 */
 	public void getNumeroFemtos(){
-		double num_House = (this.densidadeDeUsuarios*Environment.area)/3.0;
-		
-		//NumBuilding_max = Num_House/Num_apartaments_per_building
-		double numBuildingMax = num_House/(Environment.numeroApartamentosPorPredio);
-		
-		//eta_f_numBuildings = NumBuilding_max * eta_f
-		this.numeroMaximoDePrediosComFemto = Util.getProdutoPorEscalar(Femto.taxaDePenetracao,numBuildingMax);		
-		
-		for (int i=0; i<Femto.taxaDePenetracao.length; i++){
-			//N_femto(i) = Num_House*eta*(1-offgain)
-			this.numeroDeFemtos[i][0] = num_House * Femto.taxaDePenetracao[i] *(1-FemtoBasedDeployment.offGain);
-			if (i>0)
-				this.numeroDeFemtosPorPredio[i] = Math.rint((this.numeroDeFemtos[i][0]/this.numeroMaximoDePrediosComFemto[i]));
-			else this.numeroDeFemtosPorPredio[i] = 0;
-		}
+		for (int i=0; i<Femto.penetrationRate.length; i++)
+			this.numeroDeFemtos[i][0] = (Environment.numeroMaximoPredios*Environment.numeroApartamentosPorPredio*Femto.penetrationRate[i])/Environment.porcentagemUsuariosIndoor;
 	}
 
 	/**
 	 * Print values for Debug
 	 */
 	public void debug(){
-		System.out.println("Number of Macro BS's in HetNet: ");
-		Util.imprime(this.numeroDeMacros);
-
+	
 	}
 }

@@ -1,7 +1,15 @@
 package br.edu.unifesspa.malves.backhaul;
 
-
+/**
+ * 
+ * @author	Marcela Alves
+ * @since	2016-06-19
+ *
+ */
 public class Fiber{
 	
-	public static final double potenciaSFP = 2;
+	/**
+	 * SFP (Transceiver) Power (W)
+	 */
+	public static final double sfpPower = 2;
 }

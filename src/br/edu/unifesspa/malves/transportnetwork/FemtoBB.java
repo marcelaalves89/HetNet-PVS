@@ -18,7 +18,7 @@ public class FemtoBB extends FemtoPVBased {
 	 */
 	public FemtoBB(double incidenciaSolar, double densidadeDeUsuarios){
 		super(incidenciaSolar, densidadeDeUsuarios);
-		this.nome = "Macro+Femto-BB Architecture";
+		this.name = "Macro+Femto-BB Architecture";
 		this.getConsumoMacro();
 		this.getConsumoFemto();
 		this.getPotenciaDeGeracao();
@@ -31,11 +31,11 @@ public class FemtoBB extends FemtoPVBased {
 	 * Calculating the Power Consumption of Femto-BB Only (KWH)
 	 */
 	public void getConsumoFemto(){		
-		double[][] temp = Util.getProdutoPorEscalar(super.numeroDeFemtos, Femto.potencia);
+		double[][] temp = Util.getProdutoPorEscalar(super.numeroDeFemtos, Femto.power);
 		double temp2 = 0;
 		for (int i=0; i<temp.length; i++){
 			if (super.numeroDeFemtos[i][0] != 0)
-				temp2 = Environment.numeroMaximoPredios*PON.numeroDeONUsPorPredio*(PON.potenciaONU+(PON.potenciaOLT/(Femto.numeroDeWavelengthsPorFemto*PON.numeroDeWaveLenghtsTWDM)));
+				temp2 = Environment.numeroMaximoPredios*PON.numOfONUPerBuilding*(PON.onuPower+(PON.oltPower/(Femto.numOfWaveLengthsPerFemto*PON.numOfWaveLenghtsPerTWDM)));
 			this.potenciaFemtoOnly[i][0] = temp[i][0] + temp2;			
 		}		
 		Util.converterEmKWH(this.potenciaFemtoOnly);

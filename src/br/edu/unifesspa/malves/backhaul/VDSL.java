@@ -1,15 +1,35 @@
 package br.edu.unifesspa.malves.backhaul;
 
-
+/**
+ * 
+ * @author	Marcela Alves
+ * @since	2016-06-19
+ *
+ */
 public class VDSL{
 	
-	public static final double potenciaModemFemto = 10;
+	/**
+	 * Femto BS Modem Power (W)
+	 */
+	public static final double femtoBSModemPower = 10;
 	
-	public static final double potenciaDSLAM = 40;
+	/**
+	 * DSLAM Power (W)
+	 */
+	public static final double dslamPower = 40;
 	
-	public static final double numeroDePortasDSLAM = 24;
+	/**
+	 * Number of DSLAM Ports
+	 */
+	public static final double numOfDSLAMPorts = 24;
 	
-	public static final double potenciaSwitchGigabitEthernet = 300;
+	/**
+	 * Switch Gigabit Ethernet Power (W)
+	 */
+	public static final double switchGigabitEthernetPower = 300;
 	
-	public static final double numeroDePortasSwitchGigabitEthernet = 12;
+	/**
+	 * Number of Switch Ports
+	 */
+	public static final double numOfSwitchPorts = 12;
 }
