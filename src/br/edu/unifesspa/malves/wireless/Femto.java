@@ -11,7 +11,7 @@ public abstract class Femto {
 	/**
 	 * Penetration Rate Array
 	 */
-	public static final double[] penetrationRate = {0.0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3, 0.33, 0.36, 0.39, 0.42, 0.45, 0.48, 0.51, 0.54, 0.57, 0.6};
+	public static final double[] penetrationRate = {0,0.0428,0.0856,0.1284,0.1712,0.214,0.2568,0.2996,0.3424,0.3852,0.428,0.4708,0.5136,0.5563,0.6};
 	
 	/**
 	 * Cover/Reach (meters)

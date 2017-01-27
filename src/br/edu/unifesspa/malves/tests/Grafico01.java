@@ -61,7 +61,7 @@ public class Grafico01 {
 		tco.put("Femto-BB", tcoFemtoBB);
 		
 		double[] escalaX = {1.725, 7.775};
-		double[] escalaY = {299.4820160019233, 1538.5888572098809};
+		double[] escalaY = {284.0, 1454.0};
 
 		GraficoLinha demo = new GraficoLinha(this.getClass().getSimpleName(), 
 				"", 

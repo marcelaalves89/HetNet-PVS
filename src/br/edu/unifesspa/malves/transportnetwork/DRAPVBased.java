@@ -11,6 +11,12 @@ import br.edu.unifesspa.malves.trafficforecast.Environment;
 import br.edu.unifesspa.malves.util.Util;
 import br.edu.unifesspa.malves.wireless.Macro;
 
+/**
+ * 
+ * @author	Marcela Alves
+ * @since	2016-07-12
+ *
+ */
 public abstract class DRAPVBased extends DRABasedDeployment{
 
 	/**
@@ -183,7 +189,7 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 	 * 
 	 */
 	public void getEstatisticas(){		
-		double somaConsumo = 0, somaGeracao = 0, somaASerGerada = 0, diferenca = 0;		
+		double somaConsumo = 0, somaGeracao = 0, somaASerGerada = 0;		
 		double[] disponibilidadeMinimoDaRede = Util.getSomaPorColuna(this.matrizConsumoMinimo);
 		double[] energiaMinimaASerGerada = Util.getDiferenca(this.consumoTotal, disponibilidadeMinimoDaRede);
 
@@ -192,15 +198,14 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 			somaGeracao += (this.energiaGerada[i]*365);
 			somaASerGerada += (energiaMinimaASerGerada[i]*365);
 		}		
-				
-		diferenca = somaGeracao - somaASerGerada;		
+						
 		this.estatisticas[0] = somaConsumo;
 		this.estatisticas[1] = somaGeracao;		
 		this.estatisticas[2] = this.tco;
 		
 		double temp = ((somaConsumo*Meter.purchaseCostOfKWH))-this.tco;
 		//double temp = ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda))-this.tco;
-		this.estatisticas[3] = (temp/(this.userDensity*Environment.area))/Environment.anos.length;		
+		this.estatisticas[3] = (temp/(this.userDensity*Environment.area))/15;		
 		this.estatisticas[5] = somaASerGerada;				
 	}
 

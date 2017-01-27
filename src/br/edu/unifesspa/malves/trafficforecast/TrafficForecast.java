@@ -2,6 +2,11 @@ package br.edu.unifesspa.malves.trafficforecast;
 
 import br.edu.unifesspa.malves.util.Util;
 
+/**
+ * 
+ * @author	Marcela Alves
+ * @since	2016-07-12
+ */
 public class TrafficForecast {	
 	
 	public double[] taxaMediaPorUsuario;
@@ -57,10 +62,7 @@ public class TrafficForecast {
 		
 		this.picoDaDemandaDeTrafegoNaArea = Util.getProdutoPorEscalar(this.taxaMediaPorUsuario, (this.densidadeDeUsuarios*Environment.alphaMaximo));
 		
-		/*
-		 * Teste: Valores Extraidos do Codigo Matlab (Arredondados ate a quarta casa decimal)
-		 * Peak Area Traffic Demand
-		*/ 
+		//Peak Area Traffic Demand Calculated with Matlab
 		this.picoDaDemandaDeTrafegoNaArea[0] = 2.6083;
 		this.picoDaDemandaDeTrafegoNaArea[1] = 82.8000;
 		this.picoDaDemandaDeTrafegoNaArea[2] = 474.3000;
@@ -73,7 +75,18 @@ public class TrafficForecast {
 			this.previsaoDeTrafego[i-1] = (Math.pow(temp1, i-1))*Util.getMinEMaximo(picoDaDemandaDeTrafegoNaArea).get("minimo").doubleValue();
 		
 		this.taxaMediaPorUsuarioExtendida = Util.getProdutoPorEscalar(this.previsaoDeTrafego, 1.0/480.0);		
-		this.demandaDeTrafegoMaxima = this.previsaoDeTrafego[14];	
+		this.demandaDeTrafegoMaxima = this.previsaoDeTrafego[14];
+		
+		double[] vetorAuxiliarA = new double[15];
+		double[] vetorAuxiliarB = new double[15];
+		for (int i=0; i<vetorAuxiliarA.length; i++){
+			vetorAuxiliarA[i] = taxaMediaPorUsuarioExtendida[i+6];
+			vetorAuxiliarB[i] = previsaoDeTrafego[i+6];
+		}	
+		
+		taxaMediaPorUsuarioExtendida = vetorAuxiliarA;
+		previsaoDeTrafego = vetorAuxiliarB;
+
 	}
 
 	public double[] getTaxaMediaPorUsuarioExtendida() {

@@ -8,7 +8,7 @@ import br.edu.unifesspa.malves.wireless.Femto;
 /**
  * 
  * @author	Marcela Alves
- * @since	2016-06-18
+ * @since	2016-06-12
  *
  */
 public class FemtoBasedDeployment extends MacroOnlyDeployment {
@@ -45,7 +45,7 @@ public class FemtoBasedDeployment extends MacroOnlyDeployment {
 		super(densidadeDeUsuarios);
 		this.name = "Femto-Based Deployment";
 		int x = Femto.penetrationRate.length, y=this.prevision.getPrevisaoDeTrafego().length;
-		DRA
+
 		this.numeroDeMacros = new double[x][y];
 		this.numeroDeFemtos = new double[x][1];
 		this.numeroMaximoDePrediosComFemto = new double[x];
@@ -61,7 +61,7 @@ public class FemtoBasedDeployment extends MacroOnlyDeployment {
 	public void getNumeroDeMacros() {		
 		for (int i=0; i<DRA.penetrationRate.length; i++){
 			double temp = this.userDensity*Environment.area*Environment.alphaMaximo* (1-Femto.penetrationRate[i]);
-			this.numeroDeMacros[i] = Util.getDivisao(this.numOfActiveUsersPerMacro, temp); 
+			this.numeroDeMacros[i] = Util.getDivisao(this.numOfActiveUsersPerMacro, temp);
 		}
 	}
 

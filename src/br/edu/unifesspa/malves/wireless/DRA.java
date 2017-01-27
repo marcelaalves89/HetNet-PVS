@@ -46,5 +46,5 @@ public abstract class DRA {
 	/**
 	 * Penetration Rate Array
 	 */
-	public static final double[] penetrationRate = {0,0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.85,0.9,0.95,1};
+	public static final double[] penetrationRate = {0,0.07142,0.14284,0.21426,0.28568,0.3571,0.42851,0.49993,0.57136,0.64278,0.7142,0.78562,0.85704,0.92846,1};
 }

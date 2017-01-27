@@ -11,6 +11,12 @@ import br.edu.unifesspa.malves.trafficforecast.Environment;
 import br.edu.unifesspa.malves.util.Util;
 import br.edu.unifesspa.malves.wireless.Macro;
 
+/**
+ * 
+ * @author	Marcela Alves
+ * @since	2016-07-12
+ *
+ */
 public abstract class FemtoPVBased extends FemtoBasedDeployment{
 
 	/**
@@ -78,7 +84,7 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 	public FemtoPVBased(double radiacao, double densidadeDeUsuarios){
 		super(densidadeDeUsuarios);
 		this.name = "Femto-BB Architecture";
-		int dimensao = super.numeroDeFemtos.length;
+		int dimensao = super.numeroDeFemtos.length;	
 		this.potenciaFemtoOnly = new double [dimensao][dimensao];
 		this.potenciaMacroOnly = new double [dimensao][dimensao];
 		this.potenciaTotal = new double [dimensao][dimensao];
@@ -103,8 +109,8 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 	/**
 	 * 
 	 */
-	public void getPotenciaDeGeracao(){		
-		this.consumoTotal = Util.getDiagonalPrincipal(this.potenciaTotal);		
+	public void getPotenciaDeGeracao(){
+		this.consumoTotal = Util.getDiagonalPrincipal(this.potenciaTotal);
 		double[][] matrizDePotencia = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 		this.matrizConsumoMinimo = Util.getZeros(this.consumoTotal.length, this.consumoTotal.length);
 
@@ -171,7 +177,8 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 	 * 
 	 */
 	public void getEstatisticas(){		
-		double somaConsumo = 0, somaGeracao = 0, somaASerGerada = 0, diferenca = 0;
+		double somaConsumo = 0, somaGeracao = 0, somaASerGerada = 0;
+		//double diferenca = 0;
 		
 		double[] disponibilidadeMinimoDaRede = Util.getSomaPorColuna(this.matrizConsumoMinimo);
 		double[] energiaMinimaASerGerada = Util.getDiferenca(this.consumoTotal, disponibilidadeMinimoDaRede);
@@ -182,14 +189,15 @@ public abstract class FemtoPVBased extends FemtoBasedDeployment{
 			somaASerGerada += (energiaMinimaASerGerada[i]*365);
 		}		
 				
-		diferenca = somaGeracao - somaASerGerada;		
+		//diferenca = somaGeracao - somaASerGerada;		
 		this.estatisticas[0] = somaConsumo;
 		this.estatisticas[1] = somaGeracao;		
 		this.estatisticas[2] = this.tco;	
 		
 		double temp = ((somaConsumo*Meter.purchaseCostOfKWH))-this.tco;
 		//double temp = ((somaConsumo*Meter.custoKwhCompra)+(diferenca*Meter.custoKwhVenda))-this.tco;
-		this.estatisticas[3] = (temp/(this.userDensity*Environment.area))/Environment.anos.length;		
+		this.estatisticas[3] = (temp/(this.userDensity*Environment.area))/15;		
+		//this.estatisticas[3] = (temp/(this.userDensity*Environment.area))/Environment.anos.length;
 		this.estatisticas[5] = somaASerGerada;				
 	}
 		
