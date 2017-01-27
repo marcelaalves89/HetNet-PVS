@@ -23,6 +23,8 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.ApplicationFrame;
 
+import br.edu.unifesspa.malves.Main;
+
 public class GraficoBarra extends ApplicationFrame {
 
 	/**
@@ -92,7 +94,7 @@ public class GraficoBarra extends ApplicationFrame {
 
 		OutputStream arquivo;
 		try {
-			arquivo = new FileOutputStream("/home/hugo/Desktop/5G2/"+this.tituloJanela+".png");
+			arquivo = new FileOutputStream(Main.path+this.tituloJanela+".png");
 			ChartUtilities.writeChartAsPNG(arquivo, chart, 600, 500);
 			arquivo.close();
 		} catch (FileNotFoundException e) {			

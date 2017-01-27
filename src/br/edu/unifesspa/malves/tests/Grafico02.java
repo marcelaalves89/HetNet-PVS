@@ -13,6 +13,12 @@ import br.edu.unifesspa.malves.transportnetwork.FemtoCB;
 import br.edu.unifesspa.malves.util.GraficoLinha;
 import br.edu.unifesspa.malves.util.Util;
 
+/**
+ * 
+ * @author	Marcela Alves
+ * @since	2016-06-12
+ *
+ */
 public class Grafico02 {
 
 	public Grafico02(){

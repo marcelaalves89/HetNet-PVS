@@ -27,6 +27,8 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 
+import br.edu.unifesspa.malves.Main;
+
 public class GraficoLinha extends ApplicationFrame {
 
 	/**
@@ -139,7 +141,7 @@ public class GraficoLinha extends ApplicationFrame {
 		
 		OutputStream arquivo;
 		try {
-			arquivo = new FileOutputStream("/home/hugo/Desktop/5G2/"+this.tituloJanela+".png");
+			arquivo = new FileOutputStream(Main.path+this.tituloJanela+".png");
 			ChartUtilities.writeChartAsPNG(arquivo, chart, 600, 500);
 			arquivo.close();
 		} catch (FileNotFoundException e) {			
