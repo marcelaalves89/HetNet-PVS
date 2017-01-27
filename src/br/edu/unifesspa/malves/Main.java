@@ -4,11 +4,6 @@ import br.edu.unifesspa.malves.tests.Grafico01;
 import br.edu.unifesspa.malves.tests.Grafico02;
 import br.edu.unifesspa.malves.tests.Grafico03;
 import br.edu.unifesspa.malves.tests.Grafico04;
-import br.edu.unifesspa.malves.tests.Grafico05;
-import br.edu.unifesspa.malves.tests.Grafico06;
-import br.edu.unifesspa.malves.tests.Grafico07;
-import br.edu.unifesspa.malves.tests.Grafico08;
-import br.edu.unifesspa.malves.tests.Grafico09;
 
 /**
  * 
@@ -27,12 +22,12 @@ public class Main {
 
 		
 		//Variando a Densidade de Usuarios
-		new Grafico05();
+/*		new Grafico05();
 		new Grafico06();
 		new Grafico07();
 		new Grafico08();
 		new Grafico09();	
-		
+		*/
 	
 	}
 }
