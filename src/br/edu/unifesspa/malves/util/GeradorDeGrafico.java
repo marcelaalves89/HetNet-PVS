@@ -13,6 +13,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import br.edu.unifesspa.malves.trafficforecast.Environment;
 
+/**
+ * 
+ * @author	Marcela Alves
+ * @since	2016-06-12
+ *
+ */
 public class GeradorDeGrafico extends JFrame{
 
 	private static final long serialVersionUID = -848055779687594288L;

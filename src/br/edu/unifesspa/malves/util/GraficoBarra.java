@@ -25,6 +25,12 @@ import org.jfree.ui.ApplicationFrame;
 
 import br.edu.unifesspa.malves.Main;
 
+/**
+ * 
+ * @author	Marcela Alves
+ * @since	2016-06-12
+ *
+ */
 public class GraficoBarra extends ApplicationFrame {
 
 	/**

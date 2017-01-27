@@ -36,8 +36,8 @@ public class DRABF extends DRAPVBased{
 		+ PON.numOfONUPerBuilding*(PON.onuPower+(PON.oltPower/PON.numOfWaveLenghtsPerDWDM));
 		
 		this.potenciaDRAOnly = Util.getSoma(
-				Util.getProdutoPorEscalar(super.numeroDeAntenasDRA, DRA.powerAmplifierAntenna),
-				Util.getProdutoPorEscalar(super.numeroMaximoDePrediosComDRA, temp)
+				Util.getProductByInteger(super.numeroDeAntenasDRA, DRA.powerAmplifierAntenna),
+				Util.getProductByInteger(super.numeroMaximoDePrediosComDRA, temp)
 				);
 		
 		Util.converterEmKWH(this.potenciaDRAOnly);

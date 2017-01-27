@@ -37,11 +37,11 @@ public class TrafficForecast {
 		//Average traffic demand per terminal during busy hour (MB/hour)
 		//Rows: PC/Tablet/Smartphone; Columns: 2010/2015/2020
 		double[][] trafegoPesadoPorTerminal = {{56.25,900,2700},{28.1,450,1350},{7.03,112.5,337.5}};
-		double[][] trafegoOrdinarioPorTerminal = Util.getProdutoPorEscalar(trafegoPesadoPorTerminal, 1.0/8.0);
+		double[][] trafegoOrdinarioPorTerminal = Util.getProductByInteger(trafegoPesadoPorTerminal, 1.0/8.0);
 		
 		//Translate them into Mbps		
-		double[][] taxaDeTrafegoPesadoPorTerminal = Util.getProdutoPorEscalar(trafegoPesadoPorTerminal, 8.0/3600.0);
-		double[][] taxaDeTrafegoOrdinarioPorTerminal = Util.getProdutoPorEscalar(trafegoOrdinarioPorTerminal, 8.0/3600.0);
+		double[][] taxaDeTrafegoPesadoPorTerminal = Util.getProductByInteger(trafegoPesadoPorTerminal, 8.0/3600.0);
+		double[][] taxaDeTrafegoOrdinarioPorTerminal = Util.getProductByInteger(trafegoOrdinarioPorTerminal, 8.0/3600.0);
 		taxaDeTrafegoOrdinarioPorTerminal[0][0] = 0.031;
 		
 		//Average terminal demand over years
@@ -52,7 +52,7 @@ public class TrafficForecast {
 			temp[1] = Util.getColunaMatriz(taxaDeTrafegoOrdinarioPorTerminal, i);
 			taxaMedia[i] = Util.getProdutoMatricial(Util.getTransposta(Util.getColunaMatriz(fracaoDeUsuarios, i)), temp)[0];
 		}
-		taxaMedia = Util.getTransposta(taxaMedia);
+		taxaMedia = Util.getTransposed(taxaMedia);
 		
 		double[][] taxas = Util.getProdutoMatricialPorElemento(taxaMedia, Environment.taxaPenetracaoTerminais);
 
@@ -60,7 +60,7 @@ public class TrafficForecast {
 		
 		this.taxaTotalMediaPorUsuario = Util.getSomaColunasVetor(taxaMediaPorUsuario);
 		
-		this.picoDaDemandaDeTrafegoNaArea = Util.getProdutoPorEscalar(this.taxaMediaPorUsuario, (this.densidadeDeUsuarios*Environment.alphaMaximo));
+		this.picoDaDemandaDeTrafegoNaArea = Util.getProductByInteger(this.taxaMediaPorUsuario, (this.densidadeDeUsuarios*Environment.alphaMaximo));
 		
 		//Peak Area Traffic Demand Calculated with Matlab
 		this.picoDaDemandaDeTrafegoNaArea[0] = 2.6083;
@@ -74,7 +74,7 @@ public class TrafficForecast {
 		for (int i=1; i<=this.previsaoDeTrafego.length; i++)
 			this.previsaoDeTrafego[i-1] = (Math.pow(temp1, i-1))*Util.getMinEMaximo(picoDaDemandaDeTrafegoNaArea).get("minimo").doubleValue();
 		
-		this.taxaMediaPorUsuarioExtendida = Util.getProdutoPorEscalar(this.previsaoDeTrafego, 1.0/480.0);		
+		this.taxaMediaPorUsuarioExtendida = Util.getProductByInteger(this.previsaoDeTrafego, 1.0/480.0);		
 		this.demandaDeTrafegoMaxima = this.previsaoDeTrafego[14];
 		
 		double[] vetorAuxiliarA = new double[15];

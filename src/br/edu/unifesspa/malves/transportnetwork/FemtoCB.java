@@ -31,11 +31,11 @@ public class FemtoCB extends FemtoPVBased {
 	 * Calculating the Power Consumption of Femto-CB Only (KWH)
 	 */
 	public void getConsumoFemto(){		
-		double[][] temp = Util.getProdutoPorEscalar(super.numeroDeFemtos, Femto.power+VDSL.femtoBSModemPower);
+		double[][] temp = Util.getProductByInteger(super.numeroDeFemtos, Femto.power+VDSL.femtoBSModemPower);
 		double temp2 = (VDSL.dslamPower+2*Fiber.sfpPower)/VDSL.numOfDSLAMPorts;
-		double[][] temp3 = Util.getProdutoPorEscalar(super.numeroDeFemtos, temp2);
+		double[][] temp3 = Util.getProductByInteger(super.numeroDeFemtos, temp2);
 		double temp4 = VDSL.switchGigabitEthernetPower/(VDSL.numOfDSLAMPorts*VDSL.numOfSwitchPorts);
-		double[][] temp5 = Util.getProdutoPorEscalar(super.numeroDeFemtos, temp4);
+		double[][] temp5 = Util.getProductByInteger(super.numeroDeFemtos, temp4);
 		this.potenciaFemtoOnly = Util.getSoma(temp, Util.getSoma(temp3,temp5));		
 		Util.converterEmKWH(this.potenciaFemtoOnly);
 		this.potenciaTotal = Util.getSoma(this.potenciaMacroOnly,this.potenciaFemtoOnly);

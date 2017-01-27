@@ -67,16 +67,16 @@ public class MacroOnlyDeployment {
 	 * Performs the calculation of Macro Density, Macro Cell Range, Number of Macros, Number of Active Users Per Macro and Power consumption of Macro Only Architecture 
 	 */
 	public void run(){		
-		this.macroDensity = Util.getProdutoPorEscalar(prevision.getPrevisaoDeTrafego(), (1.0/Macro.cellCapacity));
+		this.macroDensity = Util.getProductByInteger(prevision.getPrevisaoDeTrafego(), (1.0/Macro.cellCapacity));
 		
 		//Macro cell range
-		double[] temp = Util.getProdutoPorEscalar(this.macroDensity, (1.5*Math.sqrt(3)));
+		double[] temp = Util.getProductByInteger(this.macroDensity, (1.5*Math.sqrt(3)));
 		this.alcanceCelulaMacro = Util.getPotencia((Util.getPotencia(temp, -1.0)),1.0/2.0);
 		
 		//Number of Macros
-		this.numOfMacros = Util.getProdutoPorEscalar(this.macroDensity, Environment.area);
+		this.numOfMacros = Util.getProductByInteger(this.macroDensity, Environment.area);
 		
 		//Number of Active users per Macro
-		this.numOfActiveUsersPerMacro = Util.getProdutoPorEscalar(Util.getPotencia(this.prevision.getTaxaMediaPorUsuarioExtendida(), -1.0), Macro.cellCapacity);
+		this.numOfActiveUsersPerMacro = Util.getProductByInteger(Util.getPotencia(this.prevision.getTaxaMediaPorUsuarioExtendida(), -1.0), Macro.cellCapacity);
 	}
 }

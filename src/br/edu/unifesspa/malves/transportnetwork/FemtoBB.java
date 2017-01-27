@@ -15,6 +15,9 @@ public class FemtoBB extends FemtoPVBased {
 	
 	/**
 	 * Super constructor call and initializing values
+	 * 
+	 * @param incidenciaSolar
+	 * @param densidadeDeUsuarios
 	 */
 	public FemtoBB(double incidenciaSolar, double densidadeDeUsuarios){
 		super(incidenciaSolar, densidadeDeUsuarios);
@@ -31,7 +34,7 @@ public class FemtoBB extends FemtoPVBased {
 	 * Calculating the Power Consumption of Femto-BB Only (KWH)
 	 */
 	public void getConsumoFemto(){		
-		double[][] temp = Util.getProdutoPorEscalar(super.numeroDeFemtos, Femto.power);
+		double[][] temp = Util.getProductByInteger(super.numeroDeFemtos, Femto.power);
 		double temp2 = 0;
 		for (int i=0; i<temp.length; i++){
 			if (super.numeroDeFemtos[i][0] != 0)

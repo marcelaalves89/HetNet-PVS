@@ -108,7 +108,7 @@ public abstract class DRAPVBased extends DRABasedDeployment{
 	 * Calculating the Total Power Consumption of Macro+DRA-CF Architecture (KWH)
 	 */
 	public void getConsumoMacro(){				
-		this.potenciaMacroOnly = Util.getProdutoPorEscalar(super.numeroDeMacros,Macro.power+(2.0*Microwave.lowPower));		
+		this.potenciaMacroOnly = Util.getProductByInteger(super.numeroDeMacros,Macro.power+(2.0*Microwave.lowPower));		
 		Util.converterEmKWH(potenciaMacroOnly);
 	}
 
