@@ -48,7 +48,7 @@ public class Util {
 	 * @param matrix The original matrix of double values
 	 * @return The new matrix of double formatted values 
 	 */
-	public static double[][] formataValores(double[][] matrix){
+	public static double[][] formatValues(double[][] matrix){
 		double[][] results = new double[matrix.length][matrix[0].length];
 		DecimalFormat format = new DecimalFormat("#.####");   
 		for (int i=0; i<matrix.length; i++)
@@ -64,7 +64,7 @@ public class Util {
 	 * @param array The original array of double values
 	 * @return The new array of double formatted values 
 	 */
-	public static double[] formataValores(double[] array){
+	public static double[] formatValues(double[] array){
 		double[] results = new double[array.length];
 		DecimalFormat formato = new DecimalFormat("#.####");   
 		for (int i=0; i<array.length; i++)
@@ -125,7 +125,7 @@ public class Util {
 	 * @param arrayRow
 	 * @return the transposed array line (Column)
 	 */
-	public static double[][] getTransposta(double[] arrayRow){
+	public static double[][] getTransposed(double[] arrayRow){
 		double[][] results = new double[1][arrayRow.length];
 		for (int i=0; i<arrayRow.length; i++)
 			results[0][i] = arrayRow[i];	
@@ -134,16 +134,16 @@ public class Util {
 
 
 	/**
-	 * Returns the ith column of a matrix
+	 * Returns the i-th column of a matrix
 	 *  
-	 * @param matriz
-	 * @param coluna
-	 * @return
+	 * @param matrix the matrix
+	 * @param columnIndex The matrix column index
+	 * @return the i-th column of a matrix as an array
 	 */
-	public static double[] getColunaMatriz(double[][] matriz, int coluna){
-		double[] results = new double[matriz.length];
-		for (int i=0; i<matriz.length; i++)
-			results[i] = matriz[i][coluna];
+	public static double[] getColunaMatriz(double[][] matrix, int columnIndex){
+		double[] results = new double[matrix.length];
+		for (int i=0; i<matrix.length; i++)
+			results[i] = matrix[i][columnIndex];
 		return results;
 	}
 

@@ -50,13 +50,13 @@ public class TrafficForecast {
 		for (int i=0; i<taxaDeTrafegoPesadoPorTerminal.length; i++){
 			temp[0] = Util.getColunaMatriz(taxaDeTrafegoPesadoPorTerminal, i);
 			temp[1] = Util.getColunaMatriz(taxaDeTrafegoOrdinarioPorTerminal, i);
-			taxaMedia[i] = Util.getProdutoMatricial(Util.getTransposta(Util.getColunaMatriz(fracaoDeUsuarios, i)), temp)[0];
+			taxaMedia[i] = Util.getProdutoMatricial(Util.getTransposed(Util.getColunaMatriz(fracaoDeUsuarios, i)), temp)[0];
 		}
 		taxaMedia = Util.getTransposed(taxaMedia);
 		
 		double[][] taxas = Util.getProdutoMatricialPorElemento(taxaMedia, Environment.taxaPenetracaoTerminais);
 
-		this.taxaMediaPorUsuario = Util.formataValores(Util.getSomaPorColuna(taxas));
+		this.taxaMediaPorUsuario = Util.formatValues(Util.getSomaPorColuna(taxas));
 		
 		this.taxaTotalMediaPorUsuario = Util.getSomaColunasVetor(taxaMediaPorUsuario);
 		
