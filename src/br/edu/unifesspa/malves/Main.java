@@ -53,6 +53,10 @@ public class Main {
 		new Grafico06();
 		new Grafico07();
 		new Grafico08();
+		
+		//Consumo Total de Energia
 		new Grafico09();
+		
+		//Análise de Sensibilidade
 	}
 }

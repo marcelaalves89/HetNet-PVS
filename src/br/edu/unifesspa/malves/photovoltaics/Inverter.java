@@ -21,7 +21,7 @@ public class Inverter {
 	/**
 	 * Rated DC Input (kW)
 	 */
-	public static final double ratedDCInput = 60.0;
+	public static final double ratedDCInput = 62.0;
 	
 	/**
 	 * Warranty Time (Years)

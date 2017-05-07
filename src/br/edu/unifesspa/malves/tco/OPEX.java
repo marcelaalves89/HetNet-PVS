@@ -13,7 +13,6 @@ public class OPEX {
 	/**
 	 * Custo Diario do Aluguel por M2
 	 */
-	//public static final double custoAluguelDiario = 1.008;
 	
-	public static final double custoAluguelDiario = 0.5;
+	public static final double custoAluguelDiario = 0.504;
 }

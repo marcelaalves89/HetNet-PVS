@@ -16,7 +16,7 @@ public class Panel {
 	/**
 	 * Panel Area (m^2)
 	 */
-	public static final double area = 1.918828;
+	public static final double area = 1.91;
 	
 	/**
 	 * Panel Warranty Time (Years)
@@ -26,7 +26,7 @@ public class Panel {
 	/**
 	 * Panel Acquisition Cost (in Brazilian Real R$)
 	 */
-	public static final double price = 659.77;
+	public static final double price = 635.00;
 	
 	/**
 	 * Panel's Efficiency (%)
